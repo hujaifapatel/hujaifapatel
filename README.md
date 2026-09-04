@@ -155,8 +155,8 @@ and education without touching code. → **[Live](https://hujaifapatel.github.io
 ## 📈 Stats
 
 <div align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=hujaifapatel&show_icons=true&hide_border=true&bg_color=0d1117&title_color=2dd4bf&icon_color=2dd4bf&text_color=8b949e&hide=contribs" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=hujaifapatel&layout=compact&hide_border=true&bg_color=0d1117&title_color=2dd4bf&text_color=8b949e&langs_count=8" />
+  <img height="165" src="[https://github-readme-stats.vercel.app](https://github.com/anuraghazra/github-readme-stats)/api?username=hujaifapatel&show_icons=true&hide_border=true&bg_color=0d1117&title_color=2dd4bf&icon_color=2dd4bf&text_color=8b949e&hide=contribs" />
+  <img height="165" src="[https://github-readme-stats.vercel.app](https://github.com/anuraghazra/github-readme-stats)/api/top-langs/?username=hujaifapatel&layout=compact&hide_border=true&bg_color=0d1117&title_color=2dd4bf&text_color=8b949e&langs_count=8" />
 </div>
 
 <br>
