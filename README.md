@@ -1,7 +1,7 @@
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:2dd4bf&height=200&section=header&text=Hujaifa%20Patel&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Full%20Stack%20Developer%20%C2%B7%20MCA%20Student&descAlignY=55&descSize=18" />
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=21&duration=2800&pause=900&color=2DD4BF&center=true&vCenter=true&width=540&lines=I+build+multi-role+web+applications;PHP+%7C+Python+%7C+React+%7C+MySQL;Currently+shipping+with+FastAPI+%2B+React;Learning+Flutter+%26+grinding+DSA" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=21&duration=2800&pause=900&color=2DD4BF&center=true&vCenter=true&width=560&lines=I+build+multi-role+web+applications;PHP+%7C+Python+%7C+React+%7C+MySQL;Currently+shipping+with+FastAPI+%2B+React;Learning+Flutter+%26+grinding+DSA+daily" alt="Typing SVG" />
 </p>
 
 <p align="center">
@@ -32,6 +32,54 @@ I specialise in applications where several kinds of people use the same system a
 once — an admin, a customer, a staff member — each with their own dashboard,
 permissions, and view of the data. Getting that separation right is the part I
 find most interesting.
+
+<br>
+
+## ⚡ What I'm On Right Now
+
+<!--START:NOW-->
+- Finishing the Dongxian admin panel
+- Graph traversal patterns in Java
+- Flutter widget basics
+<!--END:NOW-->
+
+<br>
+
+## 📚 DSA Progress — Placement Prep
+
+<!--START:DSA-->
+```text
+   TOPIC                  PROGRESS               SOLVED      
+────────────────────────────────────────────────────────────
+🟢 Arrays & Strings       █████████████████░░░    42/50   84%
+🟢 Hashing & Sets         ████████████████░░░░    24/30   80%
+🟢 Stacks                 ██████████████░░░░░░    18/25   72%
+🟡 Queues & Deques        ███████████░░░░░░░░░    14/25   56%
+🟡 Linked Lists           ██████░░░░░░░░░░░░░░     9/30   30%
+⚪ Trees & BST            ░░░░░░░░░░░░░░░░░░░░     0/40    0%
+🟡 Graphs (BFS / DFS)     ███░░░░░░░░░░░░░░░░░     6/35   17%
+⚪ Dynamic Programming    ░░░░░░░░░░░░░░░░░░░░     0/40    0%
+────────────────────────────────────────────────────────────
+   TOTAL                  ████████░░░░░░░░░░░░  113/275   41%
+```
+<!--END:DSA-->
+
+<br>
+
+## 🏗️ Backend Roadmap — Dongxian
+
+<!--START:STACK-->
+| | Milestone | Status |
+|:--:|---|---|
+| 🟢 | FastAPI + SQLAlchemy | Complete |
+| 🟢 | JWT Auth & CORS | Complete |
+| 🟢 | React + Vite frontend | Complete |
+| 🟡 | Alembic migrations | In progress |
+| 🟡 | APIRouter refactor | In progress |
+| ⚪ | Deployment (Docker) | Queued |
+
+**3 of 6 milestones complete** · ██████████░░░░░░░░░░ 50%
+<!--END:STACK-->
 
 <br>
 
@@ -165,16 +213,16 @@ and education without touching code. → **[Live](https://hujaifapatel.github.io
   <img src="https://streak-stats.demolab.com?user=hujaifapatel&hide_border=true&background=0d1117&ring=2dd4bf&fire=2dd4bf&currStreakLabel=2dd4bf&sideLabels=8b949e&dates=6e7681&currStreakNum=c9d1d9&sideNums=c9d1d9" />
 </div>
 
-<div align="center">
-  <img width="95%" src="https://github-readme-activity-graph.vercel.app/graph?username=hujaifapatel&bg_color=0d1117&color=2dd4bf&line=2dd4bf&point=ffffff&area=true&hide_border=true" />
-</div>
-
 <br>
 
 ## 🐍 Contributions
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/hujaifapatel/hujaifapatel/output/snake.svg" alt="snake animation" />
+</div>
+
+<div align="center">
+  <img width="80%" src="./profile-3d-contrib/profile-night-rainbow.svg" alt="3D contribution calendar" />
 </div>
 
 <br>
@@ -188,5 +236,9 @@ and education without touching code. → **[Live](https://hujaifapatel.github.io
 <p align="center">
   <a href="mailto:hujaifapatel05@gmail.com"><b>hujaifapatel05@gmail.com</b></a> &nbsp;·&nbsp; <b>+91 87992 52013</b>
 </p>
+
+<!--START:FOOTER-->
+<p align="center"><sub>🎯 **Placement-ready by December 2026** &nbsp;·&nbsp; Last synced 04 Sep 2026, 18:56 IST — updated automatically by GitHub Actions</sub></p>
+<!--END:FOOTER-->
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:2dd4bf,100:0d1117&height=120&section=footer" />
