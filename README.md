@@ -1,119 +1,192 @@
-<h1 align="center">Hi 👋, I'm Hujaifa Patel</h1>
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:2dd4bf&height=200&section=header&text=Hujaifa%20Patel&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Full%20Stack%20Developer%20%C2%B7%20MCA%20Student&descAlignY=55&descSize=18" />
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=2DD4BF&center=true&vCenter=true&width=520&lines=Full+Stack+Web+%26+Python+Developer;MCA+Student+%40+ISTAR%2C+CVM+University;PHP+%7C+Python+%7C+React+%7C+MySQL;Building+multi-role+web+applications" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=21&duration=2800&pause=900&color=2DD4BF&center=true&vCenter=true&width=540&lines=I+build+multi-role+web+applications;PHP+%7C+Python+%7C+React+%7C+MySQL;Currently+shipping+with+FastAPI+%2B+React;Learning+Flutter+%26+grinding+DSA" alt="Typing SVG" />
 </p>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=hujaifapatel&label=Profile%20views&color=2dd4bf&style=flat" />
+  <a href="https://hujaifapatel.github.io/"><img src="https://img.shields.io/badge/Portfolio-2dd4bf?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
+  <a href="https://www.linkedin.com/in/patel-hujaifa-707914303"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+  <a href="mailto:hujaifapatel05@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+  <img src="https://komarev.com/ghpvc/?username=hujaifapatel&label=Views&color=2dd4bf&style=for-the-badge" />
 </p>
 
----
+<br>
 
-### 🧑‍💻 About Me
+## 👨‍💻 About
 
-- 🎓 MCA (Sem 3) at **ISTAR, CVM University**, Vallabh Vidyanagar — BCA 8.10 CGPA from VNSGU, Surat
-- 🏗️ I build **multi-role web applications** — admin, customer, and staff dashboards in one system
-- 🔭 Currently building **Dongxian**, a perfume e-commerce platform on **FastAPI + React**
-- 🌱 Learning **Flutter & Dart** for Android, and working through **DSA** in Python and Java
-- 🏆 **1st Position — Web Wars (PG), IGNITE 2026**, CMPICA, CHARUSAT
-- 🌐 Portfolio: **[hujaifapatel.github.io](https://hujaifapatel.github.io/)**
-- 📫 **hujaifapatel05@gmail.com**
-- ⚡ Off-screen: perfume making, world history, and geopolitics
+```yaml
+name:       Patel Hujaifa Mohmedsharif
+location:   Bharuch, Gujarat, India
+education:  MCA @ ISTAR, CVM University  (Sem 3)
+            BCA @ VNSGU, Surat  —  8.10 CGPA
+focus:      Full-stack web development
+building:   Dongxian  —  FastAPI + React e-commerce
+learning:   [ Flutter, Dart, Data Structures & Algorithms ]
+award:      1st Place — Web Wars (PG), IGNITE 2026
+languages:  [ English, Hindi, Gujarati, Basic Chinese ]
+offscreen:  [ perfumery, world history, geopolitics ]
+```
 
----
+I specialise in applications where several kinds of people use the same system at
+once — an admin, a customer, a staff member — each with their own dashboard,
+permissions, and view of the data. Getting that separation right is the part I
+find most interesting.
 
-### 🛠️ Tech Stack
+<br>
 
-**Languages**
+## 🧰 Tech Stack
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
-![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
-
-**Frameworks & Libraries**
-
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
-![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)
-![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
-
-**Databases & Tools**
-
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
-![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
-
----
-
-### 🚧 Currently Building
-
-**Dongxian** — a perfume e-commerce platform, rebuilt from the ground up.
-
-`FastAPI` · `SQLAlchemy` · `PostgreSQL` · `React (Vite)` · `JWT Auth`
-
-Covers token-based authentication, one-to-many relational models, an admin-only
-product management panel, and a React frontend consuming the API. Repo goes public
-once the admin panel is complete.
-
----
-
-### 🧱 What I've Built
-
-Eight full-stack applications across my BCA and MCA coursework — each one a
-multi-role system with separate dashboards, authentication, and payment flows.
-
-| Project | What it does |
-|---|---|
-| **Edu E-Polls** | College e-voting system — live poll monitoring, semester and gender-wise polls, voter and candidate dashboards, student transfer across semesters |
-| **QuickBite** | Food delivery platform — order history, reorder, cancellation, monthly admin analytics |
-| **Hotel Booking** | Room and hall reservations with invoicing and Razorpay integration |
-| **Kiosk App** | Restaurant kiosk — waiter and server dashboards, food customization, email notifications |
-| **Gym Management** | Memberships, equipment tracking, and online attendance |
-| **Online Perfumes** | Storefront with user profiles, orders, and invoice management |
-| **Two-Finger Car Racing** | ASP.NET game — control two cars simultaneously, one per hand |
-| **Personal Portfolio** | React + Node + MySQL, with an admin panel for skills and experience |
-
-Screenshots and detail for each are on my
-**[portfolio site](https://hujaifapatel.github.io/)**.
-
----
-
-### 📊 GitHub Stats
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=python,php,js,java,c,cpp,dart&theme=dark" />
+</p>
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=react,fastapi,laravel,nodejs,tailwind,bootstrap,flutter&theme=dark" />
+</p>
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=mysql,postgres,mongodb,git,github,postman,vscode&theme=dark" />
+</p>
 
 <div align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=hujaifapatel&show_icons=true&hide_border=true&bg_color=0d1117&title_color=2dd4bf&icon_color=2dd4bf&text_color=c9d1d9" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=hujaifapatel&layout=compact&hide_border=true&bg_color=0d1117&title_color=2dd4bf&text_color=c9d1d9" />
+<table>
+<tr><td><b>Strongest</b></td><td>PHP · MySQL · JavaScript · Python</td></tr>
+<tr><td><b>Comfortable</b></td><td>React · FastAPI · Tailwind · Node.js · Git</td></tr>
+<tr><td><b>Learning</b></td><td>Flutter · Dart · Laravel · PostgreSQL</td></tr>
+</table>
+</div>
+
+<br>
+
+## 🚧 Currently Building
+
+> ### Dongxian — perfume e-commerce platform
+> `FastAPI` · `SQLAlchemy` · `PostgreSQL` · `React (Vite)` · `JWT`
+>
+> A rebuild of an earlier PHP storefront on a modern async stack. Token-based
+> authentication, one-to-many relational models, an admin-only product panel,
+> and a React frontend consuming the API. **Repo goes public once the admin
+> panel is complete.**
+
+<br>
+
+## 🧱 What I've Built
+
+Eight full-stack applications across my BCA and MCA coursework — each a
+multi-role system with authentication, dashboards, and payment flows.
+
+<details>
+<summary><b>📊 Edu E-Polls</b> — college e-voting system</summary>
+
+<br>
+
+`Core PHP` · `MySQL` · `JavaScript`
+
+Role-based dashboards for voters and candidates, live poll monitoring,
+semester-wise and gender-wise polls, student admission by semester, and
+transferring or removing students across semesters.
+</details>
+
+<details>
+<summary><b>🍔 QuickBite</b> — food delivery platform</summary>
+
+<br>
+
+`Core PHP` · `MySQL` · `Razorpay`
+
+Admin and customer dashboards, user profiles, order history with one-click
+reorder, order cancellation, invoicing, and monthly analytics for admins.
+</details>
+
+<details>
+<summary><b>🏨 Hotel Booking</b> — rooms and halls</summary>
+
+<br>
+
+`Core PHP` · `MySQL` · `Razorpay`
+
+Separate admin and customer dashboards covering room and hall inventory,
+bookings, invoices, and user management.
+</details>
+
+<details>
+<summary><b>🍽️ Kiosk App</b> — restaurant ordering</summary>
+
+<br>
+
+`Core PHP` · `MySQL` · `Razorpay`
+
+Four roles — admin, customer, waiter, server. Food customisation, order routing,
+invoice management, and automated email notifications to customers.
+</details>
+
+<details>
+<summary><b>💪 Gym Management</b> — memberships and attendance</summary>
+
+<br>
+
+`Core PHP` · `MySQL` · `Razorpay`
+
+Admin, user, and staff dashboards. Membership types, bookings, equipment
+management, user admission, and online attendance tracking.
+</details>
+
+<details>
+<summary><b>🏎️ Two-Finger Car Racing</b> — ASP.NET game</summary>
+
+<br>
+
+`ASP.NET` · `HTML` · `CSS` · `JavaScript`
+
+Control two cars simultaneously, one per hand. Escalating difficulty, in-game
+events, coin collection, and purchasable car skins.
+</details>
+
+<details>
+<summary><b>🌐 Personal Portfolio</b> — with admin panel</summary>
+
+<br>
+
+`React` · `Node.js` · `MySQL` · `Tailwind`
+
+Public-facing site plus an admin dashboard for updating skills, experience,
+and education without touching code. → **[Live](https://hujaifapatel.github.io/)**
+</details>
+
+<br>
+
+## 📈 Stats
+
+<div align="center">
+  <img height="165" src="https://github-readme-stats.vercel.app/api?username=hujaifapatel&show_icons=true&hide_border=true&bg_color=0d1117&title_color=2dd4bf&icon_color=2dd4bf&text_color=8b949e&hide=contribs" />
+  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=hujaifapatel&layout=compact&hide_border=true&bg_color=0d1117&title_color=2dd4bf&text_color=8b949e&langs_count=8" />
 </div>
 
 <div align="center">
-  <img src="https://streak-stats.demolab.com?user=hujaifapatel&hide_border=true&background=0d1117&ring=2dd4bf&fire=2dd4bf&currStreakLabel=2dd4bf&sideLabels=c9d1d9&dates=8b949e&currStreakNum=c9d1d9&sideNums=c9d1d9" />
+  <img src="https://streak-stats.demolab.com?user=hujaifapatel&hide_border=true&background=0d1117&ring=2dd4bf&fire=2dd4bf&currStreakLabel=2dd4bf&sideLabels=8b949e&dates=6e7681&currStreakNum=c9d1d9&sideNums=c9d1d9" />
 </div>
 
----
+<div align="center">
+  <img width="95%" src="https://github-readme-activity-graph.vercel.app/graph?username=hujaifapatel&bg_color=0d1117&color=2dd4bf&line=2dd4bf&point=ffffff&area=true&hide_border=true" />
+</div>
 
-### 🐍 Contribution Graph
+<br>
+
+## 🐍 Contributions
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/hujaifapatel/hujaifapatel/output/snake.svg" alt="snake animation" />
 </div>
 
+<br>
+
 ---
 
-### 🌐 Connect
+<p align="center">
+  <i>Open to Full Stack and Python developer roles · Based in Gujarat, open to relocate</i>
+</p>
 
 <p align="center">
-  <a href="https://www.linkedin.com/in/patel-hujaifa-707914303"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
-  <a href="mailto:hujaifapatel05@gmail.com"><img src="https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white" /></a>
-  <a href="https://hujaifapatel.github.io/"><img src="https://img.shields.io/badge/Portfolio-2dd4bf?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
+  <a href="mailto:hujaifapatel05@gmail.com"><b>hujaifapatel05@gmail.com</b></a> &nbsp;·&nbsp; <b>+91 87992 52013</b>
 </p>
+
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:2dd4bf,100:0d1117&height=120&section=footer" />
