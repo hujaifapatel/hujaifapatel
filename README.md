@@ -152,15 +152,6 @@ and education without touching code. → **[Live](https://hujaifapatel.github.io
 
 <br>
 
-## 📈 Stats
-
-<div align="center">
-  <img height="165" src="[https://github-readme-stats.vercel.app](https://github.com/anuraghazra/github-readme-stats)/api?username=hujaifapatel&show_icons=true&hide_border=true&bg_color=0d1117&title_color=2dd4bf&icon_color=2dd4bf&text_color=8b949e&hide=contribs" />
-  <img height="165" src="[https://github-readme-stats.vercel.app](https://github.com/anuraghazra/github-readme-stats)/api/top-langs/?username=hujaifapatel&layout=compact&hide_border=true&bg_color=0d1117&title_color=2dd4bf&text_color=8b949e&langs_count=8" />
-</div>
-
-<br>
-
 ## 🐍 Contributions
 
 <div align="center">
@@ -168,6 +159,25 @@ and education without touching code. → **[Live](https://hujaifapatel.github.io
 </div>
 
 <br>
+
+<!--
+  STATS SECTION — currently disabled.
+
+  The public github-readme-stats instance is returning 503 (deployment paused).
+  To turn this back on, fork anuraghazra/github-readme-stats, deploy it on
+  Vercel, then replace YOUR-INSTANCE below with your own deployment domain
+  (something like hujaifapatel-stats.vercel.app) and delete these comment
+  markers.
+
+## 📈 Stats
+
+<div align="center">
+  <img height="165" src="https://YOUR-INSTANCE.vercel.app/api?username=hujaifapatel&show_icons=true&hide_border=true&bg_color=0d1117&title_color=2dd4bf&icon_color=2dd4bf&text_color=8b949e&hide=contribs" />
+  <img height="165" src="https://YOUR-INSTANCE.vercel.app/api/top-langs/?username=hujaifapatel&layout=compact&hide_border=true&bg_color=0d1117&title_color=2dd4bf&text_color=8b949e&langs_count=8" />
+</div>
+
+<br>
+-->
 
 ---
 
