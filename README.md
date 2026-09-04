@@ -1,7 +1,7 @@
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:2dd4bf&height=200&section=header&text=Hujaifa%20Patel&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Full%20Stack%20Developer%20%C2%B7%20MCA%20Student&descAlignY=55&descSize=18" />
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=21&duration=2800&pause=900&color=2DD4BF&center=true&vCenter=true&width=560&lines=I+build+multi-role+web+applications;PHP+%7C+Python+%7C+React+%7C+MySQL;Currently+shipping+with+FastAPI+%2B+React;Learning+Flutter+%26+grinding+DSA+daily" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=21&duration=2800&pause=900&color=2DD4BF&center=true&vCenter=true&width=560&lines=I+build+multi-role+web+applications;PHP+%7C+Python+%7C+React+%7C+MySQL;Full+stack+developer+%26+MCA+student;1st+Place+%E2%80%94+Web+Wars%2C+IGNITE+2026" alt="Typing SVG" />
 </p>
 
 <p align="center">
@@ -21,8 +21,6 @@ location:   Bharuch, Gujarat, India
 education:  MCA @ ISTAR, CVM University  (Sem 3)
             BCA @ VNSGU, Surat  —  8.10 CGPA
 focus:      Full-stack web development
-building:   Dongxian  —  FastAPI + React e-commerce
-learning:   [ Flutter, Dart, Data Structures & Algorithms ]
 award:      1st Place — Web Wars (PG), IGNITE 2026
 languages:  [ English, Hindi, Gujarati, Basic Chinese ]
 offscreen:  [ perfumery, world history, geopolitics ]
@@ -33,53 +31,9 @@ once — an admin, a customer, a staff member — each with their own dashboard,
 permissions, and view of the data. Getting that separation right is the part I
 find most interesting.
 
-<br>
-
-## ⚡ What I'm On Right Now
-
-<!--START:NOW-->
-- Finishing the Dongxian admin panel
-- Graph traversal patterns in Java
-- Flutter widget basics
-<!--END:NOW-->
-
-<br>
-
-## 📚 DSA Progress — Placement Prep
-
-<!--START:DSA-->
-```text
-   TOPIC                  PROGRESS               SOLVED      
-────────────────────────────────────────────────────────────
-🟢 Arrays & Strings       █████████████████░░░    42/50   84%
-🟢 Hashing & Sets         ████████████████░░░░    24/30   80%
-🟢 Stacks                 ██████████████░░░░░░    18/25   72%
-🟡 Queues & Deques        ███████████░░░░░░░░░    14/25   56%
-🟡 Linked Lists           ██████░░░░░░░░░░░░░░     9/30   30%
-⚪ Trees & BST            ░░░░░░░░░░░░░░░░░░░░     0/40    0%
-🟡 Graphs (BFS / DFS)     ███░░░░░░░░░░░░░░░░░     6/35   17%
-⚪ Dynamic Programming    ░░░░░░░░░░░░░░░░░░░░     0/40    0%
-────────────────────────────────────────────────────────────
-   TOTAL                  ████████░░░░░░░░░░░░  113/275   41%
-```
-<!--END:DSA-->
-
-<br>
-
-## 🏗️ Backend Roadmap — Dongxian
-
-<!--START:STACK-->
-| | Milestone | Status |
-|:--:|---|---|
-| 🟢 | FastAPI + SQLAlchemy | Complete |
-| 🟢 | JWT Auth & CORS | Complete |
-| 🟢 | React + Vite frontend | Complete |
-| 🟡 | Alembic migrations | In progress |
-| 🟡 | APIRouter refactor | In progress |
-| ⚪ | Deployment (Docker) | Queued |
-
-**3 of 6 milestones complete** · ██████████░░░░░░░░░░ 50%
-<!--END:STACK-->
+Across eight full-stack projects I've built voting platforms, booking systems,
+ordering apps, and storefronts — handling authentication, relational schemas,
+payment integration, and responsive interfaces end to end.
 
 <br>
 
@@ -97,30 +51,15 @@ find most interesting.
 
 <div align="center">
 <table>
-<tr><td><b>Strongest</b></td><td>PHP · MySQL · JavaScript · Python</td></tr>
-<tr><td><b>Comfortable</b></td><td>React · FastAPI · Tailwind · Node.js · Git</td></tr>
-<tr><td><b>Learning</b></td><td>Flutter · Dart · Laravel · PostgreSQL</td></tr>
+<tr><td><b>Core</b></td><td>PHP · MySQL · JavaScript · Python</td></tr>
+<tr><td><b>Frameworks</b></td><td>React · FastAPI · Laravel · Node.js · Tailwind</td></tr>
+<tr><td><b>Tools</b></td><td>Git · GitHub · Postman · VS Code · XAMPP</td></tr>
 </table>
 </div>
 
 <br>
 
-## 🚧 Currently Building
-
-> ### Dongxian — perfume e-commerce platform
-> `FastAPI` · `SQLAlchemy` · `PostgreSQL` · `React (Vite)` · `JWT`
->
-> A rebuild of an earlier PHP storefront on a modern async stack. Token-based
-> authentication, one-to-many relational models, an admin-only product panel,
-> and a React frontend consuming the API. **Repo goes public once the admin
-> panel is complete.**
-
-<br>
-
-## 🧱 What I've Built
-
-Eight full-stack applications across my BCA and MCA coursework — each a
-multi-role system with authentication, dashboards, and payment flows.
+## 🧱 Projects
 
 <details>
 <summary><b>📊 Edu E-Polls</b> — college e-voting system</summary>
@@ -132,6 +71,17 @@ multi-role system with authentication, dashboards, and payment flows.
 Role-based dashboards for voters and candidates, live poll monitoring,
 semester-wise and gender-wise polls, student admission by semester, and
 transferring or removing students across semesters.
+</details>
+
+<details>
+<summary><b>🌸 Dongxian</b> — perfume e-commerce platform</summary>
+
+<br>
+
+`FastAPI` · `SQLAlchemy` · `PostgreSQL` · `React (Vite)` · `JWT`
+
+Storefront with token-based authentication, relational product and order models,
+an admin-only management panel, and a React frontend consuming the API.
 </details>
 
 <details>
@@ -209,20 +159,12 @@ and education without touching code. → **[Live](https://hujaifapatel.github.io
   <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=hujaifapatel&layout=compact&hide_border=true&bg_color=0d1117&title_color=2dd4bf&text_color=8b949e&langs_count=8" />
 </div>
 
-<div align="center">
-  <img src="https://streak-stats.demolab.com?user=hujaifapatel&hide_border=true&background=0d1117&ring=2dd4bf&fire=2dd4bf&currStreakLabel=2dd4bf&sideLabels=8b949e&dates=6e7681&currStreakNum=c9d1d9&sideNums=c9d1d9" />
-</div>
-
 <br>
 
 ## 🐍 Contributions
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/hujaifapatel/hujaifapatel/output/snake.svg" alt="snake animation" />
-</div>
-
-<div align="center">
-  <img width="80%" src="./profile-3d-contrib/profile-night-rainbow.svg" alt="3D contribution calendar" />
 </div>
 
 <br>
@@ -236,9 +178,5 @@ and education without touching code. → **[Live](https://hujaifapatel.github.io
 <p align="center">
   <a href="mailto:hujaifapatel05@gmail.com"><b>hujaifapatel05@gmail.com</b></a> &nbsp;·&nbsp; <b>+91 87992 52013</b>
 </p>
-
-<!--START:FOOTER-->
-<p align="center"><sub>🎯 **Placement-ready by December 2026** &nbsp;·&nbsp; Last synced 04 Sep 2026, 18:56 IST — updated automatically by GitHub Actions</sub></p>
-<!--END:FOOTER-->
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:2dd4bf,100:0d1117&height=120&section=footer" />
