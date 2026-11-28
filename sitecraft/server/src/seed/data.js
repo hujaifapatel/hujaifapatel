@@ -5,11 +5,12 @@ const img = (id, w = 1400) => `https://images.unsplash.com/photo-${id}?auto=form
 
 export const categories = [
   { name: 'Restaurant & Cafe', slug: 'restaurant', icon: '🍽️', order: 1, description: 'Restaurants, cafes, bakeries aur cloud kitchens ke liye mouth-watering websites.', cover: img('1517248135467-4c7edcad34c4', 800) },
-  { name: 'Gym & Fitness', slug: 'fitness', icon: '💪', order: 2, description: 'Gyms, yoga studios aur personal trainers ke liye energetic designs.', cover: img('1534438327276-14e5300c3a48', 800) },
-  { name: 'Salon & Spa', slug: 'salon', icon: '💇', order: 3, description: 'Beauty parlours, salons aur spa ke liye elegant templates.', cover: img('1560066984-138dadb4c035', 800) },
-  { name: 'Portfolio & Photography', slug: 'portfolio', icon: '📸', order: 4, description: 'Photographers, designers aur freelancers ke liye clean portfolios.', cover: img('1452587925148-ce544e77e70d', 800) },
-  { name: 'Business & Agency', slug: 'business', icon: '💼', order: 5, description: 'Startups, agencies aur consultants ke liye professional websites.', cover: img('1497366216548-37526070297c', 800) },
-  { name: 'Real Estate', slug: 'real-estate', icon: '🏡', order: 6, description: 'Property dealers, builders aur agents ke liye premium layouts.', cover: img('1600596542815-ffad4c1539a9', 800) },
+  { name: 'Gym & Fitness', slug: 'fitness', icon: '💪', order: 3, description: 'Gyms, yoga studios aur personal trainers ke liye energetic designs.', cover: img('1534438327276-14e5300c3a48', 800) },
+  { name: 'Salon & Spa', slug: 'salon', icon: '💇', order: 4, description: 'Beauty parlours, salons aur spa ke liye elegant templates.', cover: img('1560066984-138dadb4c035', 800) },
+  { name: 'Portfolio & Photography', slug: 'portfolio', icon: '📸', order: 5, description: 'Photographers, designers aur freelancers ke liye clean portfolios.', cover: img('1452587925148-ce544e77e70d', 800) },
+  { name: 'Business & Agency', slug: 'business', icon: '💼', order: 6, description: 'Startups, agencies aur consultants ke liye professional websites.', cover: img('1497366216548-37526070297c', 800) },
+  { name: 'Mobile & Electronics Store', slug: 'mobile-store', icon: '📱', order: 2, description: 'Mobile shops, electronics aur accessories stores ke liye product-focused websites.', cover: img('1511707171634-5f897ff02aa9', 800) },
+  { name: 'Real Estate', slug: 'real-estate', icon: '🏡', order: 7, description: 'Property dealers, builders aur agents ke liye premium layouts.', cover: img('1600596542815-ffad4c1539a9', 800) },
 ];
 
 // Template ka fixed content: "Why choose us" features + products page ka naam
@@ -57,6 +58,15 @@ const content = {
       { icon: '🧠', title: 'Expert Team', desc: 'Designers, developers aur marketers.' },
       { icon: '💰', title: 'Affordable', desc: 'Startups ke liye friendly pricing.' },
       { icon: '🤝', title: '24/7 Support', desc: 'Hamesha aapke saath.' },
+    ],
+  },
+  'mobile-store': {
+    productsLabel: 'Products', productsIntro: 'Latest smartphones aur accessories — best price, original products.', cta: 'Call to Order',
+    features: [
+      { icon: '✅', title: '100% Original', desc: 'Sirf brand-new aur sealed products, bill ke saath.' },
+      { icon: '🛡️', title: 'Official Warranty', desc: 'Har phone par company warranty.' },
+      { icon: '💳', title: 'Easy EMI', desc: 'No-cost EMI aur sabhi cards accepted.' },
+      { icon: '🔧', title: 'Repair & Service', desc: 'Screen, battery aur software repair.' },
     ],
   },
   'real-estate': {
@@ -127,6 +137,18 @@ const demo = {
       { name: 'Business Consulting', price: '₹2,999/hr', description: 'Growth strategy aur planning sessions.', image: img('1556761175-b413da4baf72', 700) },
     ],
   },
+  'mobile-store': {
+    title: 'Smart Mobile Hub', tagline: 'Latest phones. Best prices.',
+    description: 'Smart Mobile Hub me milenge sabhi top brands ke latest smartphones, original accessories aur expert repair service. Exchange offers aur easy EMI ke saath apna naya phone aaj hi ghar le jaaiye.',
+    images: ['1511707171634-5f897ff02aa9', '1592750475338-74b7b21085ab', '1546054454-aa26e2b734c7', '1598327105666-5b89351aff97'].map((i) => img(i)),
+    products: [
+      { name: 'iPhone 15 (128 GB)', price: '₹69,900', description: 'A16 Bionic chip, 48MP camera, USB-C. Black, Blue, Pink.', image: img('1592750475338-74b7b21085ab', 700) },
+      { name: 'Samsung Galaxy S24', price: '₹74,999', description: 'Galaxy AI, 50MP triple camera, 8GB RAM.', image: img('1598327105666-5b89351aff97', 700) },
+      { name: 'Wireless Earbuds', price: '₹2,499', description: 'Noise cancellation, 30 hours battery.', image: img('1590658268037-6bf12165a8df', 700) },
+      { name: 'Over-ear Headphones', price: '₹3,999', description: 'Deep bass, foldable design, Bluetooth 5.3.', image: img('1505740420928-5e560c06d30e', 700) },
+      { name: 'Smart Watch', price: '₹4,999', description: 'AMOLED display, heart-rate aur SpO2 tracking.', image: img('1523275335684-37898b6baf30', 700) },
+    ],
+  },
   'real-estate': {
     title: 'Prime Estates', tagline: 'Find the home of your dreams',
     description: 'Prime Estates ke saath sapno ka ghar dhoondhna ab aasaan. Verified properties, transparent deals aur expert guidance — sab ek jagah.',
@@ -175,6 +197,12 @@ const plan = {
     ['corporate-pro', 'Corporate Pro', 'classic', '#2563eb', '#0f172a', 'Inter', true, ['professional', 'blue']],
     ['launchpad', 'Launchpad', 'dark', '#8b5cf6', '#05010f', 'Poppins', false, ['startup', 'dark']],
     ['summit', 'Summit', 'bold', '#0891b2', '#082f49', 'Inter', false, ['hero', 'agency']],
+  ],
+  'mobile-store': [
+    ['techzone', 'TechZone', 'dark', '#22d3ee', '#020617', 'Poppins', true, ['dark', 'tech', 'electronics']],
+    ['mobile-mart', 'Mobile Mart', 'classic', '#4f46e5', '#0f172a', 'Poppins', true, ['shop', 'light', 'blue']],
+    ['gadget-pro', 'Gadget Pro', 'bold', '#f43f5e', '#111827', 'Poppins', false, ['hero', 'bold', 'sale']],
+    ['pure-tech', 'Pure Tech', 'minimal', '#0f172a', '#0f172a', 'Inter', false, ['clean', 'apple-style']],
   ],
   'real-estate': [
     ['skyline', 'Skyline', 'classic', '#0f766e', '#042f2e', 'Poppins', true, ['professional', 'green']],

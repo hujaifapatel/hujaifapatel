@@ -17,10 +17,15 @@ export async function seed() {
   console.log(`🌱 Seeded ${categories.length} categories, ${templates.length} templates`);
 }
 
-// Pehli baar (ya purane format ke templates hon to) seed chalata hai
+// Server start par: DB khali ho, purane format ke templates hon, ya seed me
+// nayi category/template add hui ho — to seed chalata hai (upsert, kuch delete nahi hota)
 export async function seedIfEmpty() {
-  const outdated = await Template.exists({ 'demo.images.0': { $exists: false } });
-  if ((await Template.estimatedDocumentCount()) === 0 || outdated) await seed();
+  const [outdated, tCount, cCount] = await Promise.all([
+    Template.exists({ 'demo.images.0': { $exists: false } }),
+    Template.countDocuments({ slug: { $in: templates.map((t) => t.slug) } }),
+    Category.countDocuments({ slug: { $in: categories.map((c) => c.slug) } }),
+  ]);
+  if (outdated || tCount < templates.length || cCount < categories.length) await seed();
 }
 
 // `npm run seed` se direct chalane par

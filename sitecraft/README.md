@@ -2,7 +2,7 @@
 
 Envato Elements jaisa platform jahan user:
 
-1. **Category chunta hai** (Restaurant, Gym, Salon, Portfolio, Business, Real Estate)
+1. **Category chunta hai** (Restaurant, Mobile & Electronics Store, Gym, Salon, Portfolio, Business, Real Estate)
 2. Us category ke **3–4 templates** dekhta hai (live preview — desktop / tablet / mobile, teeno pages)
 3. Template **select** karta hai
 4. 4 steps me apna data bharta hai — live preview turant update hota hai:
@@ -30,7 +30,7 @@ sitecraft/
 │       ├── config/db.js
 │       ├── models/          # Category, Template, Site
 │       ├── routes/          # categories, templates, sites
-│       └── seed/            # 6 categories + 21 templates ka data
+│       └── seed/            # 7 categories + 25 templates ka data
 └── client/                  # React + Vite + Tailwind
     └── src/
         ├── pages/           # Home, Templates, CategoryPage, TemplatePreview,
