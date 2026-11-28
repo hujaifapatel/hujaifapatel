@@ -1,4 +1,4 @@
-// Template website ke 3 pages ke tabs (Home / Products / Contact)
+// Tabs for the 3 pages of a template website (Home / Products / Contact)
 export default function PageTabs({ template, value, onChange, dark = false }) {
   const tabs = [
     { key: 'home', label: 'Home' },

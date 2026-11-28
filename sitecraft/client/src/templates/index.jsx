@@ -12,10 +12,10 @@ export const layouts = {
 };
 
 /**
- * Kisi bhi template ko render karne ka ek hi entry point.
+ * The single entry point for rendering any template.
  * - page: 'home' | 'products' | 'contact'
  * - nav:  { mode: 'preview', go(page) } | { mode: 'router', base } | { mode: 'static' }
- * - strict: true => sirf user ka data (final site), false => khali fields me demo data
+ * - strict: true => only the user's data (final website), false => demo data fills empty fields
  */
 export function TemplateRenderer({ template, data, page = 'home', nav, strict = false, fab = true }) {
   const Layout = layouts[template?.layout] || ClassicLayout;

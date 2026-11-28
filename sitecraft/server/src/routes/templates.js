@@ -22,13 +22,13 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// GET /api/templates/:id  (id ya slug dono chalega)
+// GET /api/templates/:id (accepts an id or a slug)
 router.get('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const query = mongoose.isValidObjectId(id) ? { _id: id } : { slug: id };
     const template = await Template.findOne(query).lean();
-    if (!template) return res.status(404).json({ message: 'Template nahi mila' });
+    if (!template) return res.status(404).json({ message: 'Template not found' });
     res.json(template);
   } catch (err) {
     next(err);

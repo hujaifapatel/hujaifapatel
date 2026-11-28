@@ -11,7 +11,7 @@ export default function TemplateCard({ template, categoryName }) {
         <ScaledFrame width={1280} aspect={0.68}>
           <TemplateRenderer template={template} fab={false} />
         </ScaledFrame>
-        {/* Overlay link (template ke andar bhi <a> hain, isliye wrap nahi karte) */}
+        {/* Overlay link (the template itself contains <a> tags, so it cannot be wrapped in a link) */}
         <Link to={`/template/${template._id}`} aria-label={`${template.name} preview`} className="absolute inset-0 flex items-center justify-center bg-ink/0 transition group-hover:bg-ink/50">
           <span className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-ink opacity-0 shadow transition group-hover:opacity-100">Live Preview</span>
         </Link>

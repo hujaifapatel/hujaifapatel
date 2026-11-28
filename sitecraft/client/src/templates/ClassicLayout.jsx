@@ -130,7 +130,7 @@ function Home({ t, d }) {
         <div className="flex flex-col items-start justify-between gap-6 rounded-3xl p-10 text-white @3xl:flex-row @3xl:items-center" style={{ background: `linear-gradient(135deg, ${primary}, ${accent})` }}>
           <div>
             <h2 className="text-3xl font-bold" style={{ fontFamily: fontStack(font) }}>Ready to get started?</h2>
-            <p className="mt-2 text-white/80">Aaj hi humse sampark karein.</p>
+            <p className="mt-2 text-white/80">Get in touch with us today.</p>
           </div>
           <SiteLink to="contact" className="rounded-full bg-white px-7 py-3 font-semibold" style={{ color: accent }}>{c.cta}</SiteLink>
         </div>
@@ -156,7 +156,7 @@ function Contact({ t, d }) {
   const { primary, accent, font } = t.theme;
   return (
     <>
-      <PageBanner t={t} d={d} title="Contact us" subtitle="Koi sawal ho ya booking karni ho — hum bas ek call door hain." image={pic(d, 3)} />
+      <PageBanner t={t} d={d} title="Contact us" subtitle="Have a question or want to make a booking? We are just a call away." image={pic(d, 3)} />
       <section className="mx-auto grid max-w-6xl gap-10 px-5 py-16 @3xl:grid-cols-2">
         <div>
           <h2 className="text-2xl font-bold" style={{ color: accent, fontFamily: fontStack(font) }}>Get in touch</h2>
@@ -177,7 +177,7 @@ function Contact({ t, d }) {
         </div>
         <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100 @3xl:p-8">
           <h2 className="text-2xl font-bold" style={{ color: accent, fontFamily: fontStack(font) }}>Send a message</h2>
-          <p className="mb-6 mt-1 text-sm text-slate-500">Hum jald se jald reply karenge.</p>
+          <p className="mb-6 mt-1 text-sm text-slate-500">We will get back to you as soon as possible.</p>
           <ContactForm data={d} primary={primary} />
         </div>
       </section>

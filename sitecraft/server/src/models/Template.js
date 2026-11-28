@@ -11,7 +11,7 @@ const templateSchema = new mongoose.Schema(
     name: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     category: { type: String, required: true, index: true }, // category slug
-    // Frontend par kaunsa layout component render hoga
+    // Which layout component the frontend renders
     layout: { type: String, enum: ['classic', 'bold', 'minimal', 'dark'], required: true },
     description: { type: String, default: '' },
     tags: [String],
@@ -22,14 +22,14 @@ const templateSchema = new mongoose.Schema(
       accent: { type: String, default: '#0f172a' },
       font: { type: String, default: 'Inter' },
     },
-    // Template ka fixed content (category ke hisab se)
+    // Fixed content of the template (depends on the category)
     content: {
       productsLabel: { type: String, default: 'Products' },
       productsIntro: String,
       cta: String,
       features: [featureSchema],
     },
-    // Preview ke liye demo data (user ka data isko replace karega)
+    // Demo data for previews (replaced by the user's data)
     demo: {
       title: String,
       tagline: String,

@@ -7,6 +7,7 @@ const links = [
   { to: '/templates', label: 'Templates' },
   { to: '/#categories', label: 'Categories', hash: true },
   { to: '/#how', label: 'How it works', hash: true },
+  { to: '/my-sites', label: 'My Websites' },
 ];
 
 export default function Navbar() {
@@ -40,11 +41,13 @@ export default function Navbar() {
       </div>
       {open && (
         <nav className="border-t border-slate-100 bg-white px-4 py-3 md:hidden">
-          {links.map((l) => (
-            <a key={l.to} href={l.to} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50">
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) =>
+            l.hash ? (
+              <a key={l.to} href={l.to} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50">{l.label}</a>
+            ) : (
+              <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50">{l.label}</Link>
+            )
+          )}
           <Link to="/templates" onClick={() => setOpen(false)} className="mt-2 block rounded-lg bg-brand-500 px-3 py-2.5 text-center text-sm font-semibold text-white">
             Create website
           </Link>

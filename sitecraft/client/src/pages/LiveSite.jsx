@@ -1,15 +1,19 @@
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { api } from '../lib/api.js';
+import { api, API_BASE } from '../lib/api.js';
 import { useFetch } from '../lib/useFetch.js';
 import { TemplateRenderer } from '../templates/index.jsx';
 import { ErrorState, PageLoader } from '../components/States.jsx';
 
-// User ki published website — full screen, bina platform UI ke.
+// The user's published website — full screen, without the platform UI.
 // Routes: /s/:id (Home), /s/:id/products, /s/:id/contact
 export default function LiveSite() {
   const { id, page = 'home' } = useParams();
   const { data: site, loading, error } = useFetch(() => api.site(id), [id]);
+
+  useEffect(() => {
+    api.countView(id);
+  }, [id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,6 +27,14 @@ export default function LiveSite() {
 
   if (!['home', 'products', 'contact'].includes(page)) return <Navigate to={`/s/${id}`} replace />;
   if (loading) return <PageLoader />;
-  if (error) return <ErrorState error={error} title="Website nahi mili" />;
-  return <TemplateRenderer template={site.template} data={site.data} page={page} nav={{ mode: 'router', base: `/s/${id}` }} strict />;
+  if (error) return <ErrorState error={error} title="Website not found" />;
+  return (
+    <TemplateRenderer
+      template={site.template}
+      data={site.data}
+      page={page}
+      nav={{ mode: 'router', base: `/s/${id}`, siteId: id, apiBase: API_BASE }}
+      strict
+    />
+  );
 }

@@ -1,11 +1,11 @@
-// Image ko browser me hi resize + compress karta hai (default max 1400px, JPEG)
-// taaki MongoDB me chhota base64 save ho.
+// Resizes and compresses an image in the browser (default max 1400px, JPEG)
+// so a small base64 string is stored in MongoDB.
 export function compressImage(file, maxSize = 1400, quality = 0.8) {
   return new Promise((resolve, reject) => {
-    if (!file.type.startsWith('image/')) return reject(new Error('Sirf image file upload karein'));
-    if (file.size > 15 * 1024 * 1024) return reject(new Error('Image 15MB se chhoti honi chahiye'));
+    if (!file.type.startsWith('image/')) return reject(new Error('Please upload an image file'));
+    if (file.size > 15 * 1024 * 1024) return reject(new Error('The image must be smaller than 15 MB'));
     const reader = new FileReader();
-    reader.onerror = () => reject(new Error('Image read nahi ho payi'));
+    reader.onerror = () => reject(new Error('Could not read the image'));
     reader.onload = () => {
       const img = new Image();
       img.onerror = () => reject(new Error('Invalid image'));

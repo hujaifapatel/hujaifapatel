@@ -110,7 +110,7 @@ function Contact({ t, d }) {
   const { primary, accent } = t.theme;
   return (
     <>
-      <PageTitle t={t} title="Say hello" subtitle="Hum aapse baat karne ke liye excited hain." />
+      <PageTitle t={t} title="Say hello" subtitle="We would love to hear from you." />
       <section className="mx-auto max-w-5xl px-5 pb-16">
         <img src={pic(d, 3)} alt="" className="aspect-[21/9] w-full object-cover" />
         <div className="mt-16 grid gap-16 @3xl:grid-cols-2">

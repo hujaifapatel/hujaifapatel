@@ -27,7 +27,7 @@ export default function TemplatePreview() {
   const { data: t, loading, error } = useFetch(() => api.template(id), [id]);
 
   if (loading) return <PageLoader />;
-  if (error) return <ErrorState error={error} title="Template nahi mila" />;
+  if (error) return <ErrorState error={error} title="Template not found" />;
 
   return (
     <main className="bg-slate-800">

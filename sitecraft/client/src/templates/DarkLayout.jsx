@@ -133,7 +133,7 @@ function Contact({ t, d }) {
   const { primary, font } = t.theme;
   return (
     <>
-      <PageTitle t={t} label="Get in touch" title="Contact us" subtitle="Koi bhi sawal ho — hum yahan hain." />
+      <PageTitle t={t} label="Get in touch" title="Contact us" subtitle="Have a question? We are here to help." />
       <section className="relative z-10 mx-auto grid max-w-6xl gap-8 px-5 pb-16 @3xl:grid-cols-2">
         <div className="space-y-3">
           {contactList(d).map((i) => {

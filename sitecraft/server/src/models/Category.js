@@ -8,7 +8,7 @@ const categorySchema = new mongoose.Schema(
     icon: { type: String, default: '✨' },
     cover: { type: String, default: '' },
     order: { type: Number, default: 0 },
-    // 'shop' = product wali dukaan, 'service' = service business
+    // 'shop' = sells products, 'service' = service business
     group: { type: String, enum: ['shop', 'service'], default: 'service' },
   },
   { timestamps: true }

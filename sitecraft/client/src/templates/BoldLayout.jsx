@@ -134,7 +134,7 @@ function Contact({ t, d, page }) {
   const { primary, accent, font } = t.theme;
   return (
     <>
-      <Hero t={t} d={d} page={page} image={pic(d, 3)} title="Let's talk" subtitle="Aaj hi contact karein aur pehla step lein." />
+      <Hero t={t} d={d} page={page} image={pic(d, 3)} title="Let's talk" subtitle="Contact us today and take the first step." />
       <section className="py-16">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 @3xl:grid-cols-2">
           <div className="space-y-4">

@@ -37,7 +37,7 @@ function Field({ label, hint, error, children }) {
   );
 }
 
-// Form ke 4 steps; har step preview me kaunsa page dikhaye
+// The 4 form steps and which page each one shows in the preview
 const STEPS = [
   { key: 'basic', label: 'Basic info', icon: '📝', page: 'home' },
   { key: 'images', label: 'Images', icon: '🖼️', page: 'home' },
@@ -47,17 +47,17 @@ const STEPS = [
 
 function validate(form) {
   const e = {};
-  if (!form.title.trim()) e.title = 'Website ka title / business name daalein';
-  if (!form.description.trim()) e.description = 'Apne business ke baare me thoda likhiye';
-  if (form.images.filter(Boolean).length < MIN_IMAGES) e.images = `Kam se kam ${MIN_IMAGES} images upload karein`;
+  if (!form.title.trim()) e.title = 'Please enter your website title / business name';
+  if (!form.description.trim()) e.description = 'Please write a few lines about your business';
+  if (form.images.filter(Boolean).length < MIN_IMAGES) e.images = `Please upload at least ${MIN_IMAGES} images`;
   const named = form.products.filter((p) => p.name.trim());
-  if (!named.length) e.products = 'Kam se kam 1 product / service add karein (naam ke saath)';
+  if (!named.length) e.products = 'Please add at least 1 product (with a name)';
   form.products.forEach((p, i) => {
-    if (!p.name.trim() && (p.price || p.description || p.image)) e[`product-${i}`] = 'Naam zaroori hai';
+    if (!p.name.trim() && (p.price || p.description || p.image)) e[`product-${i}`] = 'Name is required';
   });
-  if (!form.phone.trim() && !form.email.trim()) e.contact = 'Phone ya email me se kam se kam ek daalein';
-  if (form.email && !EMAIL_RX.test(form.email.trim())) e.email = 'Email sahi format me daalein';
-  if (form.phone && form.phone.replace(/\D/g, '').length < 7) e.phone = 'Phone number sahi daalein';
+  if (!form.phone.trim() && !form.email.trim()) e.contact = 'Please enter a phone number or an email';
+  if (form.email && !EMAIL_RX.test(form.email.trim())) e.email = 'Please enter a valid email address';
+  if (form.phone && form.phone.replace(/\D/g, '').length < 7) e.phone = 'Please enter a valid phone number';
   return e;
 }
 
@@ -88,7 +88,7 @@ function ImagesStep({ images, setImages, error }) {
     }
   };
 
-  // Ek saath multiple images select karein -> khali slots me bhar jaayengi
+  // Select several images at once -> they fill the empty slots
   const addMany = async (fileList) => {
     const files = Array.from(fileList || []);
     let free = images.map((s, i) => (s ? -1 : i)).filter((i) => i >= 0);
@@ -108,7 +108,7 @@ function ImagesStep({ images, setImages, error }) {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <p className="text-sm text-slate-500">{MIN_IMAGES}–{MAX_IMAGES} images upload karein ({count}/{MAX_IMAGES})</p>
+        <p className="text-sm text-slate-500">{MIN_IMAGES}–{MAX_IMAGES} images ({count}/{MAX_IMAGES} uploaded)</p>
         <button type="button" onClick={() => multiRef.current?.click()} className="text-sm font-semibold text-brand-600 hover:text-brand-700">+ Select multiple</button>
         <input ref={multiRef} type="file" accept="image/*" multiple hidden onChange={(e) => { addMany(e.target.files); e.target.value = ''; }} />
       </div>
@@ -147,7 +147,7 @@ function ImagesStep({ images, setImages, error }) {
         ))}
       </div>
       {(error || err) && <p className="mt-2 text-xs text-red-600">{err || error}</p>}
-      <p className="mt-3 text-xs text-slate-400">Tip: Image par hover karke "Make main" se hero image badal sakte hain. Images auto-compress hongi.</p>
+      <p className="mt-3 text-xs text-slate-400">Tip: hover over an image and click "Make main" to change the hero image. Images are compressed automatically.</p>
     </div>
   );
 }
@@ -182,7 +182,7 @@ function ProductsStep({ template, products, setProducts, errors }) {
   return (
     <div>
       <p className="text-sm text-slate-500">
-        Aapke <strong>{label}</strong> page par ye items dikhenge (max {MAX_PRODUCTS}). Image nahi daali to aapki gallery image use hogi.
+        These items appear on your <strong>{label}</strong> page (max {MAX_PRODUCTS}). If you skip an image, one of your gallery images is used.
       </p>
       {errors.products && <p className="mt-2 text-xs text-red-600">{errors.products}</p>}
       <div className="mt-4 space-y-3">
@@ -199,7 +199,7 @@ function ProductsStep({ template, products, setProducts, errors }) {
               </button>
               <input ref={(el) => (fileRefs.current[i] = el)} type="file" accept="image/*" hidden onChange={(e) => { onImage(i, e.target.files?.[0]); e.target.value = ''; }} />
               <div className="min-w-0 flex-1 space-y-2">
-                <input className={`${input} py-2`} placeholder={`Naam (e.g. ${template.demo.products?.[i % 4]?.name || 'Item name'})`} value={p.name} onChange={(e) => update(i, 'name', e.target.value)} maxLength={80} />
+                <input className={`${input} py-2`} placeholder={`Name (e.g. ${template.demo.products?.[i % 4]?.name || 'Item name'})`} value={p.name} onChange={(e) => update(i, 'name', e.target.value)} maxLength={80} />
                 <input className={`${input} py-2`} placeholder="Price (e.g. ₹499)" value={p.price} onChange={(e) => update(i, 'price', e.target.value)} maxLength={40} />
               </div>
             </div>
@@ -243,9 +243,9 @@ export default function Customize() {
   const [device, setDevice] = useState(() => (window.innerWidth < 640 ? 'mobile' : 'desktop'));
   const [saving, setSaving] = useState(false);
   const [serverError, setServerError] = useState('');
-  const [showPreview, setShowPreview] = useState(false); // mobile par preview toggle
+  const [showPreview, setShowPreview] = useState(false); // preview toggle on mobile
 
-  // Edit mode: purana data form me bharo
+  // Edit mode: fill the form with the saved data
   useEffect(() => {
     const d = existing.data?.data;
     if (!d) return;
@@ -276,7 +276,7 @@ export default function Customize() {
     setPage(STEPS[i].page);
   };
 
-  // Preview ke liye data (khali images hata kar)
+  // Data for the preview (without empty image slots)
   const previewData = useMemo(() => ({ ...form, images: form.images.filter(Boolean) }), [form]);
   const errorSteps = new Set(Object.keys(errors).filter((k) => errors[k]).map(stepOf));
 
@@ -314,7 +314,16 @@ export default function Customize() {
   };
 
   if (loading || existing.loading) return <PageLoader />;
-  if (error) return <ErrorState error={error} title="Template nahi mila" />;
+  if (error) return <ErrorState error={error} title="Template not found" />;
+  if (editId && !editKey) {
+    return (
+      <ErrorState
+        title="You cannot edit this website here"
+        error={{ message: 'A website can only be edited from the browser it was created in. Open "My Websites" in that browser.' }}
+      />
+    );
+  }
+  if (existing.error) return <ErrorState error={existing.error} title="Website not found" />;
 
   const isLast = step === STEPS.length - 1;
   const current = STEPS[step].key;
@@ -357,10 +366,10 @@ export default function Customize() {
                   <Field label="Website title / Business name *" error={errors.title}>
                     <input className={input} value={form.title} onChange={set('title')} placeholder={t.demo.title} maxLength={80} />
                   </Field>
-                  <Field label="Tagline" hint="Ek chhoti si line jo aapke business ko describe kare">
+                  <Field label="Tagline" hint="One short line that describes your business">
                     <input className={input} value={form.tagline} onChange={set('tagline')} placeholder={t.demo.tagline} maxLength={160} />
                   </Field>
-                  <Field label="Description / About *" error={errors.description} hint={`${form.description.length}/1500 — Home page ke "About" section me dikhega`}>
+                  <Field label="Description / About *" error={errors.description} hint={`${form.description.length}/1500 — shown in the "About" section of your home page`}>
                     <textarea className={`${input} resize-y`} rows={6} value={form.description} onChange={set('description')} placeholder={t.demo.description} maxLength={1500} />
                   </Field>
                 </>
@@ -377,14 +386,14 @@ export default function Customize() {
                     <Field label="Phone" error={errors.phone}>
                       <input className={input} type="tel" value={form.phone} onChange={set('phone')} placeholder="+91 98765 43210" />
                     </Field>
-                    <Field label="WhatsApp" hint="Chat button + enquiry">
+                    <Field label="WhatsApp" hint="Chat button + product enquiries">
                       <input className={input} type="tel" value={form.whatsapp} onChange={set('whatsapp')} placeholder="919876543210" />
                     </Field>
                   </div>
-                  <Field label="Email" error={errors.email} hint="Contact form ke messages yahan aayenge">
+                  <Field label="Email" error={errors.email} hint="Shown on your Contact page">
                     <input className={input} type="email" value={form.email} onChange={set('email')} placeholder="you@business.com" />
                   </Field>
-                  <Field label="Address" hint="Contact page par Google Map me dikhega">
+                  <Field label="Address" hint="Shown on a Google Map on your Contact page">
                     <textarea className={`${input} resize-none`} rows={2} value={form.address} onChange={set('address')} placeholder="Shop no, area, city" maxLength={250} />
                   </Field>
                   <Field label="Business hours">
@@ -413,7 +422,7 @@ export default function Customize() {
               </div>
               {!isLast && (
                 <button type="submit" disabled={saving} className="w-full text-center text-xs font-medium text-slate-400 hover:text-brand-600">
-                  Sab bhar diya? Seedha website generate karein →
+                  Done already? Generate your website now →
                 </button>
               )}
             </div>
@@ -442,7 +451,7 @@ export default function Customize() {
                 <TemplateRenderer template={t} data={previewData} page={page} nav={{ mode: 'preview', go: setPage }} />
               </ScaledFrame>
             </div>
-            <p className="mt-3 text-center text-xs text-slate-400">Khali fields me demo content dikh raha hai — final website me sirf aapka data hoga.</p>
+            <p className="mt-3 text-center text-xs text-slate-400">Empty fields show demo content — your final website will only contain your own data.</p>
           </div>
         </div>
       </div>

@@ -12,14 +12,14 @@ export function PageLoader() {
   );
 }
 
-export function ErrorState({ error, title = 'Kuch galat ho gaya' }) {
+export function ErrorState({ error, title = 'Something went wrong' }) {
   return (
     <div className="mx-auto flex min-h-[50vh] max-w-md flex-col items-center justify-center px-4 text-center">
       <div className="text-5xl">😕</div>
       <h2 className="mt-4 text-xl font-bold">{title}</h2>
-      <p className="mt-2 text-sm text-slate-500">{error?.message || 'Please thodi der baad try karein.'}</p>
+      <p className="mt-2 text-sm text-slate-500">{error?.message || 'Please try again in a little while.'}</p>
       <Link to="/" className="mt-6 rounded-full bg-brand-500 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-600">
-        Home par jaayein
+        Go to home page
       </Link>
     </div>
   );

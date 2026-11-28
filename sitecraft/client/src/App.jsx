@@ -10,11 +10,12 @@ import Customize from './pages/Customize.jsx';
 import SiteReady from './pages/SiteReady.jsx';
 import LiveSite from './pages/LiveSite.jsx';
 import NotFound from './pages/NotFound.jsx';
+import MySites from './pages/MySites.jsx';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
-    // "/#categories" jaise links par us section tak scroll, warna top par
+    // Links like "/#categories" scroll to that section, otherwise to the top
     if (hash) {
       const t = setTimeout(() => document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' }), 100);
       return () => clearTimeout(t);
@@ -26,7 +27,7 @@ function ScrollToTop() {
 
 export default function App() {
   const { pathname } = useLocation();
-  // /s/:id = user ki live website — uspar platform ka navbar/footer nahi dikhana
+  // /s/:id = the user's live website — no platform navbar/footer there
   const bare = pathname.startsWith('/s/');
 
   return (
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/template/:id" element={<TemplatePreview />} />
         <Route path="/customize/:id" element={<Customize />} />
         <Route path="/site/:id" element={<SiteReady />} />
+        <Route path="/my-sites" element={<MySites />} />
         <Route path="/s/:id" element={<LiveSite />} />
         <Route path="/s/:id/:page" element={<LiveSite />} />
         <Route path="*" element={<NotFound />} />

@@ -10,7 +10,7 @@ export default function CategoryPage() {
   const cat = useFetch(() => api.category(slug), [slug]);
   const list = useFetch(() => api.templates({ category: slug }), [slug]);
 
-  if (cat.error) return <ErrorState error={cat.error} title="Category nahi mili" />;
+  if (cat.error) return <ErrorState error={cat.error} title="Category not found" />;
 
   return (
     <main>
@@ -27,7 +27,7 @@ export default function CategoryPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <h2 className="text-xl font-semibold">Ek template select karein</h2>
+          <h2 className="text-xl font-semibold">Choose a template</h2>
           <Steps current={1} />
         </div>
         {list.loading ? (

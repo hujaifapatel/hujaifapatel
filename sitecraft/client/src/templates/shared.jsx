@@ -1,8 +1,8 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-// Template ke common helpers. Templates sirf inline styles + Tailwind classes use karte hain
-// taaki "Download" (static HTML) me bhi exactly waise hi dikhein.
+// Helpers shared by all templates. Templates only use inline styles + Tailwind classes
+// so the downloaded (static HTML) website looks exactly the same.
 
 export const PAGES = ['home', 'products', 'contact'];
 
@@ -19,12 +19,13 @@ export function hexToRgba(hex, alpha = 1) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Navigation: ek hi template 3 jagah render hota hai                  */
-/*  - preview : platform ke andar (page state se switch)               */
-/*  - router  : live website /s/:id/products (react-router)            */
+/* Navigation: the same template is rendered in 3 places               */
+/*  - preview : inside the platform (switches pages with state)        */
+/*  - router  : the live website /s/:id/products (react-router)        */
 /*  - static  : downloaded files index.html / products.html / ...      */
+/* Context value: { mode, go, base, siteId, apiBase }                  */
 /* ------------------------------------------------------------------ */
-export const SiteNavContext = createContext({ mode: 'preview', go: () => {}, base: '' });
+export const SiteNavContext = createContext({ mode: 'preview', go: () => {}, base: '', siteId: '', apiBase: '' });
 
 const staticFile = { home: 'index.html', products: 'products.html', contact: 'contact.html' };
 
@@ -66,8 +67,8 @@ export function navItems(template) {
 
 /* ------------------------------------------------------------------ */
 /* Data merge                                                          */
-/* strict=false (preview)  => khali field me demo value                */
-/* strict=true (final site) => sirf user ki value                      */
+/* strict=false (preview)    => demo values fill empty fields          */
+/* strict=true (final site) => only the user's values                 */
 /* ------------------------------------------------------------------ */
 export function mergeData(template, data, strict = false) {
   const demo = template?.demo || {};
@@ -81,13 +82,13 @@ export function mergeData(template, data, strict = false) {
   for (const k of ['title', 'tagline', 'description', 'phone', 'email', 'address', 'hours']) out[k] = val(k);
   out.whatsapp = (d.whatsapp || '').trim();
 
-  // Images: preview me user ki images + baaki demo se (total 4)
+  // Images: in previews, the user's images + the rest from the demo (4 in total)
   const userImages = (d.images || []).filter(Boolean);
   const demoImages = demo.images || [];
   out.images = strict ? userImages : [...userImages, ...demoImages.slice(userImages.length)].slice(0, 4);
   if (!out.images.length) out.images = demoImages.slice(0, 4);
 
-  // Products: user ne kuch nahi dala to preview me demo products
+  // Products: if the user has added none yet, the preview shows the demo products
   const userProducts = (d.products || []).filter((p) => p?.name?.trim());
   const base = userProducts.length || strict ? userProducts : demo.products || [];
   out.products = base.map((p, i) => ({
@@ -99,7 +100,7 @@ export function mergeData(template, data, strict = false) {
   return out;
 }
 
-// i-th image (agar kam images hain to repeat)
+// i-th image (repeats if there are fewer images)
 export const pic = (data, i) => data.images[i % data.images.length] || '';
 
 /* ------------------------------------------------------------------ */
@@ -128,7 +129,7 @@ export function Icon({ name, className = 'w-5 h-5' }) {
   );
 }
 
-// Phone / Email / Address / Hours list — jo field khali hai wo hide
+// Phone / WhatsApp / Email / Address / Hours — empty fields are hidden
 export function contactList(d) {
   return [
     d.phone && { key: 'phone', icon: 'phone', label: 'Call us', value: d.phone, href: telHref(d.phone) },
@@ -139,28 +140,78 @@ export function contactList(d) {
   ].filter(Boolean);
 }
 
-// Product par "Enquire" button: WhatsApp > Call > Email
+// "Enquire" button on a product: WhatsApp > Call > Email
 export function enquireHref(product, d) {
-  const msg = `Hi ${d.title}, mujhe "${product.name}" ke baare me jaankari chahiye.`;
+  const msg = `Hi ${d.title}, I am interested in "${product.name}". Could you share more details?`;
   if (d.whatsapp) return waHref(d.whatsapp, msg);
   if (d.phone) return telHref(d.phone);
   if (d.email) return `mailto:${d.email}?subject=${encodeURIComponent(`Enquiry: ${product.name}`)}&body=${encodeURIComponent(msg)}`;
   return '#';
 }
 
-// Contact form — bina backend ke: user ka email app message ke saath khulta hai.
-// Isliye static download me bhi kaam karta hai. Email nahi diya to form nahi dikhta.
+// Contact form. Every message is saved in the database (messages collection)
+// and the owner reads it on the "Website ready" page.
+//  - router (live website): sent with fetch, shows a success message
+//  - static (downloaded website): a normal HTML form post to the API
+//  - preview (inside the builder): not sent, shows a hint instead
 export function ContactForm({ data, primary, dark = false, square = false }) {
-  if (!data.email) return null;
+  const nav = useContext(SiteNavContext);
+  const [status, setStatus] = useState({ state: 'idle', text: '' });
   const field = `w-full border px-4 py-3 text-sm outline-none ${square ? '' : 'rounded-xl'} ${
     dark ? 'border-white/15 bg-white/5 text-white placeholder:text-slate-500' : 'border-slate-200 bg-white text-slate-800 placeholder:text-slate-400'
   }`;
+  const endpoint = nav.siteId ? `${nav.apiBase || ''}/api/sites/${nav.siteId}/messages` : '';
+
+  const onSubmit = async (e) => {
+    if (nav.mode === 'static') return; // normal form post
+    e.preventDefault();
+    if (nav.mode !== 'router' || !endpoint) {
+      setStatus({ state: 'info', text: 'This is a preview. Messages are sent from your live website.' });
+      return;
+    }
+    const form = e.currentTarget;
+    const body = Object.fromEntries(new FormData(form));
+    setStatus({ state: 'sending', text: '' });
+    try {
+      const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(out.message || 'Could not send your message');
+      form.reset();
+      setStatus({ state: 'sent', text: 'Thank you! Your message has been sent. We will get back to you soon.' });
+    } catch (err) {
+      setStatus({ state: 'error', text: err.message });
+    }
+  };
+
+  if (status.state === 'sent') {
+    return (
+      <div className={`p-6 text-center ${square ? '' : 'rounded-xl'}`} style={{ background: hexToRgba(primary, 0.12) }}>
+        <div className="text-3xl">✅</div>
+        <p className={`mt-2 font-medium ${dark ? 'text-white' : 'text-slate-800'}`}>{status.text}</p>
+      </div>
+    );
+  }
+
   return (
-    <form action={`mailto:${data.email}`} method="get" className="space-y-4">
-      <input type="hidden" name="subject" value={`Website enquiry — ${data.title}`} />
-      <textarea name="body" rows={6} required className={field} placeholder={'Namaste! Mera naam ... hai.\nMujhe ... ke baare me jaankari chahiye.'} aria-label="Message" />
-      <button type="submit" className={`w-full px-6 py-3 font-semibold text-white ${square ? '' : 'rounded-xl'}`} style={{ background: primary }}>
-        Send message
+    <form action={nav.mode === 'static' ? endpoint : undefined} method="post" onSubmit={onSubmit} className="space-y-4">
+      {/* honeypot field: hidden from people, filled by spam bots */}
+      <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+      <div className="grid gap-4 @xl:grid-cols-2">
+        <input name="name" required maxLength={80} className={field} placeholder="Your name *" aria-label="Your name" />
+        <input name="phone" type="tel" maxLength={30} className={field} placeholder="Phone number" aria-label="Phone number" />
+      </div>
+      <input name="email" type="email" maxLength={120} className={field} placeholder="Email address" aria-label="Email address" />
+      <textarea name="message" required rows={5} maxLength={2000} className={field} placeholder="How can we help you? *" aria-label="Message" />
+      {status.text && (
+        <p className={`text-sm ${status.state === 'error' ? 'text-red-500' : dark ? 'text-slate-400' : 'text-slate-500'}`}>{status.text}</p>
+      )}
+      <button
+        type="submit"
+        disabled={status.state === 'sending'}
+        className={`w-full px-6 py-3 font-semibold text-white disabled:opacity-60 ${square ? '' : 'rounded-xl'}`}
+        style={{ background: primary }}
+      >
+        {status.state === 'sending' ? 'Sending...' : 'Send message'}
       </button>
     </form>
   );

@@ -5,6 +5,7 @@ import { useFetch } from '../lib/useFetch.js';
 import ScaledFrame from '../components/ScaledFrame.jsx';
 import PageTabs from '../components/PageTabs.jsx';
 import Steps from '../components/Steps.jsx';
+import MessagesInbox from '../components/MessagesInbox.jsx';
 import { TemplateRenderer } from '../templates/index.jsx';
 import { ErrorState, PageLoader, Spinner } from '../components/States.jsx';
 
@@ -14,10 +15,10 @@ export default function SiteReady() {
   const [copied, setCopied] = useState(false);
   const [page, setPage] = useState('home');
   const [zipping, setZipping] = useState(false);
-  const canEdit = Boolean(editKeys.get(id));
+  const editKey = editKeys.get(id);
 
   if (loading) return <PageLoader />;
-  if (error) return <ErrorState error={error} title="Website nahi mili" />;
+  if (error) return <ErrorState error={error} title="Website not found" />;
 
   const liveUrl = `${window.location.origin}/s/${site._id}`;
   const copy = async () => {
@@ -26,14 +27,14 @@ export default function SiteReady() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      window.prompt('Link copy karein:', liveUrl);
+      window.prompt('Copy this link:', liveUrl);
     }
   };
   const download = async () => {
     setZipping(true);
     try {
       const { downloadSite } = await import('../lib/exportHtml.jsx');
-      await downloadSite(site.template, site.data);
+      await downloadSite(site.template, site.data, site._id);
     } finally {
       setZipping(false);
     }
@@ -45,10 +46,11 @@ export default function SiteReady() {
         <div className="flex justify-center"><Steps current={3} /></div>
         <div className="mt-10 text-center">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-100 text-3xl">🎉</div>
-          <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl">Aapki website ready hai!</h1>
+          <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl">Your website is ready!</h1>
           <p className="mt-3 text-slate-500">
             <strong className="text-ink">{site.data.title}</strong> — “{site.template.name}” template · 3 pages ·{' '}
             {site.data.products.length} {site.template.content.productsLabel.toLowerCase()} · {site.data.images.length} images
+            {editKey && <> · 👁 {site.views} views</>}
           </p>
         </div>
 
@@ -67,13 +69,21 @@ export default function SiteReady() {
             {zipping && <Spinner className="h-4 w-4 border-2 border-white/30 border-t-white" />}
             ⬇ Download website (.zip)
           </button>
-          {canEdit && (
+          {editKey && (
             <Link to={`/customize/${site.template._id}?site=${site._id}`} className="rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold hover:bg-slate-50">
-              ✏️ Edit details
+              ✏️ Edit website
             </Link>
           )}
         </div>
-        <p className="mt-3 text-center text-xs text-slate-400">ZIP me index.html, products.html, contact.html aur images folder hai — kisi bhi hosting par upload kar sakte hain.</p>
+        <p className="mt-3 text-center text-xs text-slate-400">
+          The ZIP contains index.html, products.html, contact.html and an images folder — upload it to any hosting.
+        </p>
+
+        {editKey && (
+          <div className="mx-auto mt-10 max-w-3xl">
+            <MessagesInbox siteId={site._id} editKey={editKey} />
+          </div>
+        )}
 
         <div className="mt-12 flex justify-center">
           <PageTabs template={site.template} value={page} onChange={setPage} />

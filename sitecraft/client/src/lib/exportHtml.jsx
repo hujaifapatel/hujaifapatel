@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import JSZip from 'jszip';
 import { TemplateRenderer } from '../templates/index.jsx';
+import { absoluteApiBase } from './api.js';
 
 const FONTS =
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600;700&family=Oswald:wght@500;600;700&family=Playfair+Display:wght@500;700;800&family=Poppins:wght@400;500;600;700;800&display=swap';
@@ -10,20 +11,20 @@ const FILES = { home: 'index.html', products: 'products.html', contact: 'contact
 const escapeHtml = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
-// App ka compiled Tailwind CSS (same-origin stylesheets) — downloaded site bina CDN ke same dikhe
+// The app's compiled Tailwind CSS (same-origin stylesheets), so the downloaded site looks the same without a CDN
 function collectCss() {
   let css = '';
   for (const sheet of Array.from(document.styleSheets)) {
     try {
       for (const rule of Array.from(sheet.cssRules)) css += rule.cssText + '\n';
     } catch {
-      // cross-origin (Google Fonts) — skip, wo <link> se load hota hai
+      // cross-origin (Google Fonts) — skipped, it is loaded with a <link>
     }
   }
   return css.replace(/<\/style/gi, '<\\/style');
 }
 
-// base64 images ko alag files (images/...) me nikaal kar data me unka path daalta hai
+// Moves base64 images into separate files (images/...) and puts their paths in the data
 function extractImages(data) {
   const files = [];
   const seen = new Map();
@@ -44,9 +45,9 @@ function extractImages(data) {
   return { data: out, files };
 }
 
-function pageHtml(template, data, page) {
+function pageHtml(template, data, page, nav) {
   const body = renderToStaticMarkup(
-    <TemplateRenderer template={template} data={data} page={page} nav={{ mode: 'static' }} strict />
+    <TemplateRenderer template={template} data={data} page={page} nav={nav} strict />
   );
   const label = { home: '', products: template.content?.productsLabel || 'Products', contact: 'Contact' }[page];
   const title = escapeHtml(label ? `${label} — ${data.title}` : data.title);
@@ -68,15 +69,17 @@ ${body}
 </html>`;
 }
 
-// User ki website ko ZIP me download karta hai:
+// Downloads the user's website as a ZIP:
 // index.html, products.html, contact.html, style.css, images/*
-export async function downloadSite(template, rawData) {
+// The contact form posts to the SiteCraft API, so messages still reach the database.
+export async function downloadSite(template, rawData, siteId) {
   const { data, files } = extractImages(rawData);
+  const nav = { mode: 'static', siteId, apiBase: absoluteApiBase() };
   const zip = new JSZip();
   zip.file('style.css', `${collectCss()}\nhtml{scroll-behavior:smooth}body{margin:0;background:#fff}`);
-  for (const [page, file] of Object.entries(FILES)) zip.file(file, pageHtml(template, data, page));
+  for (const [page, file] of Object.entries(FILES)) zip.file(file, pageHtml(template, data, page, nav));
   for (const f of files) zip.file(f.path, f.base64, { base64: true });
-  zip.file('README.txt', `${data.title} — website\n\nindex.html ko browser me kholiye.\nKisi bhi hosting (Netlify, GitHub Pages, cPanel) par poora folder upload kar dein.\n`);
+  zip.file('README.txt', `${data.title} — website\n\nOpen index.html in your browser.\nTo publish it, upload the whole folder to any hosting (Netlify, GitHub Pages, cPanel).\nContact form messages are saved to your SiteCraft dashboard.\n`);
 
   const blob = await zip.generateAsync({ type: 'blob' });
   const name = (data.title || 'my-website').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'website';

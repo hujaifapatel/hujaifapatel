@@ -27,7 +27,7 @@ export default function Templates() {
       <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div>
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Website templates</h1>
-          <p className="mt-2 text-slate-500">{list.data ? `${list.data.length} templates mile` : 'Loading...'}</p>
+          <p className="mt-2 text-slate-500">{list.data ? `${list.data.length} templates found` : 'Loading...'}</p>
         </div>
         <form
           onSubmit={(e) => {
@@ -62,8 +62,8 @@ export default function Templates() {
           <p className="text-red-600">{list.error.message}</p>
         ) : list.data.length === 0 ? (
           <div className="py-20 text-center text-slate-500">
-            Koi template nahi mila.{' '}
-            <button onClick={() => setParams({})} className="font-semibold text-brand-600">Filters clear karein</button>
+            No templates found.{' '}
+            <button onClick={() => setParams({})} className="font-semibold text-brand-600">Clear filters</button>
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

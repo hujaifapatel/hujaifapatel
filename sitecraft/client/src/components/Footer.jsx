@@ -8,8 +8,8 @@ export default function Footer() {
         <div className="md:col-span-2">
           <Logo light />
           <p className="mt-4 max-w-sm text-sm leading-relaxed">
-            Apne business ke liye professional website minutes me banaiye. Category chuniye, template select kariye,
-            details daaliye — website ready!
+            Build a professional website for your business in minutes. Pick a category, choose a template,
+            add your details — and your website is ready!
           </p>
         </div>
         <div>

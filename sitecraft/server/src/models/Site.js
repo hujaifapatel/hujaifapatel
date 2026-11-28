@@ -11,6 +11,7 @@ const productSchema = new mongoose.Schema(
   { _id: false }
 );
 
+// One generated website = the chosen template + everything the user entered
 const siteSchema = new mongoose.Schema(
   {
     template: { type: mongoose.Schema.Types.ObjectId, ref: 'Template', required: true },
@@ -19,7 +20,7 @@ const siteSchema = new mongoose.Schema(
       title: { type: String, required: true, trim: true, maxlength: 80 },
       tagline: { type: String, trim: true, maxlength: 160, default: '' },
       description: { type: String, trim: true, maxlength: 1500, default: '' },
-      // 3-4 images (base64 data URLs, client side compressed)
+      // 3-4 images (base64 data URLs, compressed in the browser)
       images: { type: [String], default: [] },
       // Products page
       products: { type: [productSchema], default: [] },
@@ -30,7 +31,7 @@ const siteSchema = new mongoose.Schema(
       address: { type: String, trim: true, maxlength: 250, default: '' },
       hours: { type: String, trim: true, maxlength: 120, default: '' },
     },
-    // Site banane wale ko milta hai — isi se baad me edit kar sakta hai
+    // Secret given to the creator; required to edit the site and read its messages
     editKey: { type: String, select: false, default: () => crypto.randomBytes(16).toString('hex') },
     views: { type: Number, default: 0 },
   },
