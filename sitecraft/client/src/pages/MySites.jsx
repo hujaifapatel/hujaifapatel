@@ -50,11 +50,13 @@ export default function MySites() {
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {state.sites.map((s) => (
               <div key={s._id} className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
-                <Link to={`/site/${s._id}`} className="block bg-slate-100">
+                <div className="relative bg-slate-100">
                   <ScaledFrame width={1280} aspect={0.6}>
                     <TemplateRenderer template={s.template} data={s.data} fab={false} strict />
                   </ScaledFrame>
-                </Link>
+                  {/* overlay link — the preview itself contains links, so it cannot be wrapped */}
+                  <Link to={`/site/${s._id}`} aria-label={`Open ${s.data.title}`} className="absolute inset-0" />
+                </div>
                 <div className="p-4">
                   <h3 className="truncate font-semibold">{s.data.title}</h3>
                   <p className="mt-0.5 truncate text-xs text-slate-500">
