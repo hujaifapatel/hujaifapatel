@@ -33,7 +33,7 @@ export function SiteLink({ to, className, style, children, ...rest }) {
   const nav = useContext(SiteNavContext);
   if (nav.mode === 'router') {
     return (
-      <Link to={to === 'home' ? nav.base : `${nav.base}/${to}`} className={className} style={style} {...rest}>
+      <Link to={to === 'home' ? nav.base || '/' : `${nav.base}/${to}`} className={className} style={style} {...rest}>
         {children}
       </Link>
     );

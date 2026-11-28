@@ -14,7 +14,7 @@ export default function SiteReady() {
   const { data: site, loading, error } = useFetch(() => api.site(id), [id]);
   const [copied, setCopied] = useState(false);
   const [page, setPage] = useState('home');
-  const [zipping, setZipping] = useState(false);
+  const [zipping, setZipping] = useState(''); // 'react' | 'html' | ''
   const editKey = editKeys.get(id);
 
   if (loading) return <PageLoader />;
@@ -30,13 +30,19 @@ export default function SiteReady() {
       window.prompt('Copy this link:', liveUrl);
     }
   };
-  const download = async () => {
-    setZipping(true);
+  // React project (main download) or plain HTML files
+  const download = async (kind) => {
+    setZipping(kind);
     try {
-      const { downloadSite } = await import('../lib/exportHtml.jsx');
-      await downloadSite(site.template, site.data, site._id);
+      if (kind === 'react') {
+        const { downloadReactProject } = await import('../lib/exportReact.js');
+        await downloadReactProject(site.template, site.data, site._id);
+      } else {
+        const { downloadSite } = await import('../lib/exportHtml.jsx');
+        await downloadSite(site.template, site.data, site._id);
+      }
     } finally {
-      setZipping(false);
+      setZipping('');
     }
   };
 
@@ -65,9 +71,9 @@ export default function SiteReady() {
           <a href={`/s/${site._id}`} target="_blank" rel="noreferrer" className="rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 hover:bg-brand-600">
             Open live website ↗
           </a>
-          <button onClick={download} disabled={zipping} className="flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-60">
-            {zipping && <Spinner className="h-4 w-4 border-2 border-white/30 border-t-white" />}
-            ⬇ Download website (.zip)
+          <button onClick={() => download('react')} disabled={!!zipping} className="flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-60">
+            {zipping === 'react' ? <Spinner className="h-4 w-4 border-2 border-white/30 border-t-white" /> : <span>⚛️</span>}
+            Download React project (.zip)
           </button>
           {editKey && (
             <Link to={`/customize/${site.template._id}?site=${site._id}`} className="rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold hover:bg-slate-50">
@@ -75,8 +81,12 @@ export default function SiteReady() {
             </Link>
           )}
         </div>
-        <p className="mt-3 text-center text-xs text-slate-400">
-          The ZIP contains index.html, products.html, contact.html and an images folder — upload it to any hosting.
+        <p className="mx-auto mt-3 max-w-2xl text-center text-xs text-slate-400">
+          A React + Vite + Tailwind project with your data in <code>src/data/site.json</code> and your images in <code>public/images</code>.
+          Run <code>npm install</code> and <code>npm run dev</code> to open it.{' '}
+          <button onClick={() => download('html')} disabled={!!zipping} className="font-semibold text-slate-500 underline hover:text-ink disabled:opacity-60">
+            {zipping === 'html' ? 'Preparing…' : 'Need plain HTML files instead?'}
+          </button>
         </p>
 
         {editKey && (

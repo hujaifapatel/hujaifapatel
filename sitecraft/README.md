@@ -12,7 +12,8 @@ A platform (similar in spirit to Envato Elements) where a user:
    - **Contact:** phone, WhatsApp, email, address, business hours
 5. **Gets a 3-page website** (**Home, Products, Contact Us**):
    - a shareable live link: `/s/:id`, `/s/:id/products`, `/s/:id/contact`
-   - a **ZIP download** (`index.html`, `products.html`, `contact.html`, `style.css`, `images/`) that also works offline
+   - a **React project download** (ZIP): a React + Vite + Tailwind project with the user's data in `src/data/site.json`, images in `public/images/` and the template's JSX source — run it with `npm install` + `npm run dev`
+   - optionally plain HTML files (`index.html`, `products.html`, `contact.html`) that also work offline
    - a **Contact form** whose messages are saved in MongoDB and shown in the owner's inbox
    - **Edit website** later from the same browser (see **My Websites**) — every saved field is loaded back into the form
 
@@ -38,7 +39,7 @@ sitecraft/
         │                    # Customize, SiteReady, MySites, LiveSite
         ├── components/      # Navbar, TemplateCard, ScaledFrame, MessagesInbox, ...
         ├── templates/       # 4 website layouts: Classic, Bold, Minimal, Dark
-        └── lib/             # api, image compression, ZIP export
+        └── lib/             # api, image compression, React project export, HTML export
 ```
 
 ## Setup
@@ -115,7 +116,20 @@ Shape of `site.data`:
 - Images are resized and compressed in the browser (1400px, products 900px, JPEG) and stored as base64 in MongoDB — no separate file storage needed. For high traffic, moving them to Cloudinary or S3 is recommended.
 - **Edit without an account:** creating a website returns a secret `editKey`, which is stored in the creator's browser. It is required to edit the site and to read its messages. **My Websites** lists the websites created in the current browser.
 - **Contact form:** the live website sends messages with `fetch`; the downloaded website uses a normal HTML form post to the same API (which replies with a "Thank you" page). Spam bots are filtered with a hidden honeypot field.
-- **Download ZIP** renders the three pages with `renderToStaticMarkup`, puts the compiled CSS in `style.css` and the images in `images/`.
+- **Download React project** builds a ZIP in the browser (JSZip) with a ready-to-run Vite project:
+  ```
+  my-website/
+  ├── package.json, vite.config.js, index.html, vercel.json
+  ├── public/images/              # the user's images (from base64)
+  ├── public/_redirects           # SPA routing on Netlify
+  └── src/
+      ├── main.jsx, App.jsx       # routes: /, /products, /contact
+      ├── config.js               # site id + API URL for the contact form
+      ├── data/site.json          # the user's content
+      ├── data/template.json      # layout, colours, font, section texts
+      └── templates/              # the chosen layout + shared.jsx (same source the builder uses, via Vite ?raw imports)
+  ```
+- **Plain HTML download** renders the three pages with `renderToStaticMarkup`, puts the compiled CSS in `style.css` and the images in `images/`.
 
 ## Adding templates
 
