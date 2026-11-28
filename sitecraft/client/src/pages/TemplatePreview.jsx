@@ -4,6 +4,7 @@ import { api } from '../lib/api.js';
 import { useFetch } from '../lib/useFetch.js';
 import ScaledFrame from '../components/ScaledFrame.jsx';
 import DeviceToggle, { devices } from '../components/DeviceToggle.jsx';
+import PageTabs from '../components/PageTabs.jsx';
 import { TemplateRenderer } from '../templates/index.jsx';
 import { ErrorState, PageLoader } from '../components/States.jsx';
 
@@ -21,6 +22,7 @@ export default function TemplatePreview() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [device, setDevice] = useState(() => (window.innerWidth < 640 ? 'mobile' : 'desktop'));
+  const [page, setPage] = useState('home');
   const vh = useViewportHeight();
   const { data: t, loading, error } = useFetch(() => api.template(id), [id]);
 
@@ -38,8 +40,11 @@ export default function TemplatePreview() {
               <p className="truncate text-xs text-slate-400">{t.description}</p>
             </div>
           </div>
-          <div className="hidden sm:block">
-            <DeviceToggle value={device} onChange={setDevice} dark />
+          <div className="flex items-center gap-3">
+            <PageTabs template={t} value={page} onChange={setPage} dark />
+            <div className="hidden sm:block">
+              <DeviceToggle value={device} onChange={setDevice} dark />
+            </div>
           </div>
           <button onClick={() => navigate(`/customize/${t._id}`)} className="rounded-full bg-brand-500 px-5 py-2 text-sm font-semibold hover:bg-brand-600">
             Use this template →
@@ -48,8 +53,8 @@ export default function TemplatePreview() {
       </div>
       <div className="mx-auto max-w-7xl px-2 py-6 sm:px-6">
         <div className={`mx-auto overflow-hidden rounded-xl bg-white shadow-2xl transition-all ${device === 'mobile' ? 'ring-8 ring-slate-950' : ''}`} style={{ maxWidth: devices[device].width }}>
-          <ScaledFrame key={device} width={devices[device].width} height={Math.max(480, vh - 190)} scrollable>
-            <TemplateRenderer template={t} />
+          <ScaledFrame key={device} width={devices[device].width} height={Math.max(480, vh - 190)} scrollable resetKey={page}>
+            <TemplateRenderer template={t} page={page} nav={{ mode: 'preview', go: setPage }} />
           </ScaledFrame>
         </div>
       </div>

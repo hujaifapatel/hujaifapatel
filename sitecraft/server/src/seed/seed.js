@@ -17,8 +17,10 @@ export async function seed() {
   console.log(`🌱 Seeded ${categories.length} categories, ${templates.length} templates`);
 }
 
+// Pehli baar (ya purane format ke templates hon to) seed chalata hai
 export async function seedIfEmpty() {
-  if ((await Template.estimatedDocumentCount()) === 0) await seed();
+  const outdated = await Template.exists({ 'demo.images.0': { $exists: false } });
+  if ((await Template.estimatedDocumentCount()) === 0 || outdated) await seed();
 }
 
 // `npm run seed` se direct chalane par

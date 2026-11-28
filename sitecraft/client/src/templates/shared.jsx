@@ -1,9 +1,16 @@
-// Templates ke common helpers. Templates sirf inline styles + Tailwind classes use karte hain
-// taaki "Download HTML" me bhi exactly waise hi dikhein.
+import { createContext, useContext } from 'react';
+import { Link } from 'react-router-dom';
+
+// Template ke common helpers. Templates sirf inline styles + Tailwind classes use karte hain
+// taaki "Download" (static HTML) me bhi exactly waise hi dikhein.
+
+export const PAGES = ['home', 'products', 'contact'];
 
 export const telHref = (p) => `tel:${String(p).replace(/[^\d+]/g, '')}`;
-export const waHref = (p) => `https://wa.me/${String(p).replace(/\D/g, '')}`;
+export const waHref = (p, text = '') =>
+  `https://wa.me/${String(p).replace(/\D/g, '')}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
 export const mapsHref = (a) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a)}`;
+export const mapsEmbed = (a) => `https://maps.google.com/maps?q=${encodeURIComponent(a)}&z=15&output=embed`;
 
 export function hexToRgba(hex, alpha = 1) {
   const h = hex.replace('#', '');
@@ -11,25 +18,98 @@ export function hexToRgba(hex, alpha = 1) {
   return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
 }
 
-// Template + user data ko merge karta hai.
-// strict=false (preview) => khali field me demo value dikhegi
-// strict=true (final site) => sirf user ki value; khali contact hide ho jayega
+/* ------------------------------------------------------------------ */
+/* Navigation: ek hi template 3 jagah render hota hai                  */
+/*  - preview : platform ke andar (page state se switch)               */
+/*  - router  : live website /s/:id/products (react-router)            */
+/*  - static  : downloaded files index.html / products.html / ...      */
+/* ------------------------------------------------------------------ */
+export const SiteNavContext = createContext({ mode: 'preview', go: () => {}, base: '' });
+
+const staticFile = { home: 'index.html', products: 'products.html', contact: 'contact.html' };
+
+export function SiteLink({ to, className, style, children, ...rest }) {
+  const nav = useContext(SiteNavContext);
+  if (nav.mode === 'router') {
+    return (
+      <Link to={to === 'home' ? nav.base : `${nav.base}/${to}`} className={className} style={style} {...rest}>
+        {children}
+      </Link>
+    );
+  }
+  if (nav.mode === 'static') {
+    return <a href={staticFile[to]} className={className} style={style} {...rest}>{children}</a>;
+  }
+  return (
+    <a
+      href={`#${to}`}
+      className={className}
+      style={style}
+      onClick={(e) => {
+        e.preventDefault();
+        nav.go(to);
+      }}
+      {...rest}
+    >
+      {children}
+    </a>
+  );
+}
+
+export function navItems(template) {
+  return [
+    { key: 'home', label: 'Home' },
+    { key: 'products', label: template.content.productsLabel || 'Products' },
+    { key: 'contact', label: 'Contact' },
+  ];
+}
+
+/* ------------------------------------------------------------------ */
+/* Data merge                                                          */
+/* strict=false (preview)  => khali field me demo value                */
+/* strict=true (final site) => sirf user ki value                      */
+/* ------------------------------------------------------------------ */
 export function mergeData(template, data, strict = false) {
   const demo = template?.demo || {};
   const d = data || {};
-  const keys = ['title', 'tagline', 'image', 'phone', 'email', 'address'];
-  const out = { whatsapp: d.whatsapp || '' };
-  for (const k of keys) {
-    const v = typeof d[k] === 'string' ? d[k].trim() : d[k];
-    out[k] = v || (strict ? '' : demo[k] || '');
-  }
+  const val = (k) => {
+    const v = typeof d[k] === 'string' ? d[k].trim() : '';
+    return v || (strict ? '' : demo[k] || '');
+  };
+
+  const out = {};
+  for (const k of ['title', 'tagline', 'description', 'phone', 'email', 'address', 'hours']) out[k] = val(k);
+  out.whatsapp = (d.whatsapp || '').trim();
+
+  // Images: preview me user ki images + baaki demo se (total 4)
+  const userImages = (d.images || []).filter(Boolean);
+  const demoImages = demo.images || [];
+  out.images = strict ? userImages : [...userImages, ...demoImages.slice(userImages.length)].slice(0, 4);
+  if (!out.images.length) out.images = demoImages.slice(0, 4);
+
+  // Products: user ne kuch nahi dala to preview me demo products
+  const userProducts = (d.products || []).filter((p) => p?.name?.trim());
+  const base = userProducts.length || strict ? userProducts : demo.products || [];
+  out.products = base.map((p, i) => ({
+    name: p.name,
+    price: p.price || '',
+    description: p.description || '',
+    image: p.image || (strict ? out.images[i % out.images.length] : demo.products?.[i % (demo.products?.length || 1)]?.image || out.images[0]),
+  }));
   return out;
 }
 
+// i-th image (agar kam images hain to repeat)
+export const pic = (data, i) => data.images[i % data.images.length] || '';
+
+/* ------------------------------------------------------------------ */
+/* Icons                                                               */
+/* ------------------------------------------------------------------ */
 const paths = {
   phone: 'M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z',
   mail: 'M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75',
   pin: 'M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z',
+  clock: 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
   arrow: 'M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3',
 };
 
@@ -48,13 +128,55 @@ export function Icon({ name, className = 'w-5 h-5' }) {
   );
 }
 
-// Phone / Email / Address list — jo field khali hai wo hide
+// Phone / Email / Address / Hours list — jo field khali hai wo hide
 export function contactList(d) {
   return [
     d.phone && { key: 'phone', icon: 'phone', label: 'Call us', value: d.phone, href: telHref(d.phone) },
+    d.whatsapp && { key: 'wa', icon: 'whatsapp', label: 'WhatsApp', value: d.whatsapp, href: waHref(d.whatsapp), external: true },
     d.email && { key: 'mail', icon: 'mail', label: 'Email', value: d.email, href: `mailto:${d.email}` },
-    d.address && { key: 'pin', icon: 'pin', label: 'Visit us', value: d.address, href: mapsHref(d.address) },
+    d.address && { key: 'pin', icon: 'pin', label: 'Visit us', value: d.address, href: mapsHref(d.address), external: true },
+    d.hours && { key: 'clock', icon: 'clock', label: 'Opening hours', value: d.hours },
   ].filter(Boolean);
+}
+
+// Product par "Enquire" button: WhatsApp > Call > Email
+export function enquireHref(product, d) {
+  const msg = `Hi ${d.title}, mujhe "${product.name}" ke baare me jaankari chahiye.`;
+  if (d.whatsapp) return waHref(d.whatsapp, msg);
+  if (d.phone) return telHref(d.phone);
+  if (d.email) return `mailto:${d.email}?subject=${encodeURIComponent(`Enquiry: ${product.name}`)}&body=${encodeURIComponent(msg)}`;
+  return '#';
+}
+
+// Contact form — bina backend ke: user ka email app message ke saath khulta hai.
+// Isliye static download me bhi kaam karta hai. Email nahi diya to form nahi dikhta.
+export function ContactForm({ data, primary, dark = false, square = false }) {
+  if (!data.email) return null;
+  const field = `w-full border px-4 py-3 text-sm outline-none ${square ? '' : 'rounded-xl'} ${
+    dark ? 'border-white/15 bg-white/5 text-white placeholder:text-slate-500' : 'border-slate-200 bg-white text-slate-800 placeholder:text-slate-400'
+  }`;
+  return (
+    <form action={`mailto:${data.email}`} method="get" className="space-y-4">
+      <input type="hidden" name="subject" value={`Website enquiry — ${data.title}`} />
+      <textarea name="body" rows={6} required className={field} placeholder={'Namaste! Mera naam ... hai.\nMujhe ... ke baare me jaankari chahiye.'} aria-label="Message" />
+      <button type="submit" className={`w-full px-6 py-3 font-semibold text-white ${square ? '' : 'rounded-xl'}`} style={{ background: primary }}>
+        Send message
+      </button>
+    </form>
+  );
+}
+
+export function MapEmbed({ address, className = '' }) {
+  if (!address) return null;
+  return (
+    <iframe
+      title="Location map"
+      src={mapsEmbed(address)}
+      loading="lazy"
+      className={`h-72 w-full border-0 ${className}`}
+      referrerPolicy="no-referrer-when-downgrade"
+    />
+  );
 }
 
 export function WhatsAppFab({ number }) {
@@ -64,10 +186,10 @@ export function WhatsAppFab({ number }) {
       href={waHref(number)}
       target="_blank"
       rel="noreferrer"
-      className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg hover:scale-105 transition"
+      className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-105"
       aria-label="Chat on WhatsApp"
     >
-      <Icon name="whatsapp" className="w-7 h-7" />
+      <Icon name="whatsapp" className="h-7 w-7" />
     </a>
   );
 }

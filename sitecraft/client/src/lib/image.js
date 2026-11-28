@@ -1,6 +1,6 @@
-// Image ko browser me hi resize + compress karta hai (max 1600px, JPEG)
+// Image ko browser me hi resize + compress karta hai (default max 1400px, JPEG)
 // taaki MongoDB me chhota base64 save ho.
-export function compressImage(file, maxSize = 1600, quality = 0.82) {
+export function compressImage(file, maxSize = 1400, quality = 0.8) {
   return new Promise((resolve, reject) => {
     if (!file.type.startsWith('image/')) return reject(new Error('Sirf image file upload karein'));
     if (file.size > 15 * 1024 * 1024) return reject(new Error('Image 15MB se chhoti honi chahiye'));

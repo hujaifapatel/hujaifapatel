@@ -3,10 +3,17 @@
 Envato Elements jaisa platform jahan user:
 
 1. **Category chunta hai** (Restaurant, Gym, Salon, Portfolio, Business, Real Estate)
-2. Us category ke **3–4 templates** dekhta hai (live preview — desktop / tablet / mobile)
+2. Us category ke **3–4 templates** dekhta hai (live preview — desktop / tablet / mobile, teeno pages)
 3. Template **select** karta hai
-4. Apni **image, title, tagline aur contact details** (phone, email, address, WhatsApp) bharta hai — live preview turant update hota hai
-5. **Website ready!** — shareable live link (`/s/:id`) + ek click me **self-contained HTML download**
+4. 4 steps me apna data bharta hai — live preview turant update hota hai:
+   - **Basic info:** title, tagline, description
+   - **Images:** 3–4 images (hero, about, gallery)
+   - **Products:** 1–8 items — naam, price, description, image
+   - **Contact:** phone, WhatsApp, email, address, business hours
+5. **Website ready!** — 3 pages wali website (**Home, Products, Contact Us**):
+   - shareable live link: `/s/:id`, `/s/:id/products`, `/s/:id/contact`
+   - **ZIP download** (`index.html`, `products.html`, `contact.html`, `style.css`, `images/`) — offline bhi chalti hai
+   - **Edit details** — usi browser se baad me edit kar sakte hain
 
 **Stack:** React 19 + Vite + Tailwind CSS v4 · Node.js + Express · MongoDB Atlas (Mongoose)
 
@@ -73,16 +80,27 @@ aur start command `npm start` rakhein. Frontend alag (Vercel) par ho to `client/
 | GET | `/api/categories/:slug` | Ek category |
 | GET | `/api/templates?category=&featured=&q=` | Templates list / filter / search |
 | GET | `/api/templates/:id` | Ek template (id ya slug) |
-| POST | `/api/sites` | `{ templateId, data: { title, tagline, image, phone, email, address, whatsapp } }` → user ki site save |
+| POST | `/api/sites` | `{ templateId, data }` → site save, response me `{ _id, editKey }` |
+| PUT | `/api/sites/:id` | Header `x-edit-key` ke saath site update |
 | GET | `/api/sites/:id` | Saved site (template ke saath) |
 
 ## Kaise kaam karta hai
 
 - **Templates** MongoDB me metadata ke roop me store hote hain: `layout` (classic/bold/minimal/dark), `theme` colors + font, category-specific content (about, services) aur demo data.
-- Frontend par har `layout` ek React component hai. Template + user data merge hokar render hota hai — isliye ek layout se alag-alag categories ke liye alag look banta hai.
+- Frontend par har `layout` ek React component hai jisme 3 pages hain (Home / Products / Contact). Template + user data merge hokar render hota hai — isliye ek layout se alag-alag categories ke liye alag look banta hai. Products page ka naam category ke hisab se badalta hai (Menu, Plans, Services, Packages, Properties).
+- `site.data` ka shape:
+  ```js
+  {
+    title, tagline, description,
+    images: [dataUrl, dataUrl, dataUrl, dataUrl?],          // 3-4
+    products: [{ name, price, description, image }],        // 1-8
+    phone, whatsapp, email, address, hours
+  }
+  ```
+- Product ka "Enquire" button WhatsApp (pre-filled message) → call → email par jaata hai. Contact page par contact form (email app khulta hai) aur Google Map hai.
 - Templates **container queries** (`@container`, `@3xl:`) use karte hain, isliye scaled thumbnails, device preview aur real website — sab jagah sahi responsive layout aata hai.
-- User ki image browser me hi resize/compress (max 1600px JPEG) hokar base64 me MongoDB me save hoti hai — alag file storage ki zarurat nahi.
-- **Download HTML** template ko `renderToStaticMarkup` se static HTML banata hai aur compiled CSS inline kar deta hai — file offline bhi bilkul waisi hi dikhti hai.
+- Images browser me hi resize/compress (1400px / products 900px JPEG) hokar base64 me MongoDB me save hoti hain — alag file storage ki zarurat nahi. Zyada traffic ho to Cloudinary/S3 par shift karna behtar hai.
+- **Download ZIP** teeno pages ko `renderToStaticMarkup` se static HTML banata hai, compiled CSS `style.css` me aur images `images/` folder me daalta hai — offline bhi bilkul waisi hi dikhti hai.
 
 ## Naya template kaise add karein
 

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 /**
  * Kisi bhi content ko "virtual" width (jaise 1280px desktop) par render karke
@@ -7,9 +7,14 @@ import { useLayoutEffect, useRef, useState } from 'react';
  *
  * - height: frame ki visible height (px). Nahi di to aspect ratio use hoga.
  * - scrollable: andar scroll allow kare ya nahi (thumbnails me nahi).
+ * - resetKey: ye badle to andar ka scroll top par chala jaye (page change par).
  */
-export default function ScaledFrame({ width = 1280, height, aspect = 0.68, scrollable = false, className = '', children }) {
+export default function ScaledFrame({ width = 1280, height, aspect = 0.68, scrollable = false, resetKey, className = '', children }) {
   const ref = useRef(null);
+  const scrollRef = useRef(null);
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [resetKey]);
   const [avail, setAvail] = useState(0);
 
   useLayoutEffect(() => {
@@ -31,7 +36,7 @@ export default function ScaledFrame({ width = 1280, height, aspect = 0.68, scrol
         {scale > 0 && (
           // transform wala div "fixed" elements (WhatsApp button) ka containing block banta hai
           <div style={{ width, height: frameH / scale, transform: `scale(${scale})`, transformOrigin: 'top left' }}>
-            <div className={`h-full ${scrollable ? 'overflow-y-auto' : 'overflow-hidden pointer-events-none select-none'}`}>
+            <div ref={scrollRef} className={`h-full ${scrollable ? 'overflow-y-auto' : 'overflow-hidden pointer-events-none select-none'}`}>
               {children}
             </div>
           </div>

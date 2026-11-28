@@ -13,7 +13,7 @@ export function createApp() {
   const app = express();
 
   app.use(cors({ origin: process.env.CLIENT_URL?.split(',') || true }));
-  app.use(express.json({ limit: '6mb' })); // base64 image ke liye
+  app.use(express.json({ limit: '25mb' })); // base64 images (3-4 + products) ke liye
 
   app.get('/api/health', (_req, res) => res.json({ ok: true }));
   app.use('/api/categories', categoryRoutes);

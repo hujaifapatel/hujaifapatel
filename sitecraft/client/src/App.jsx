@@ -41,6 +41,7 @@ export default function App() {
         <Route path="/customize/:id" element={<Customize />} />
         <Route path="/site/:id" element={<SiteReady />} />
         <Route path="/s/:id" element={<LiveSite />} />
+        <Route path="/s/:id/:page" element={<LiveSite />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!bare && <Footer />}

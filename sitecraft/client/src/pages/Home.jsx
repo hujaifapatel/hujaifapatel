@@ -9,8 +9,8 @@ import { SkeletonGrid } from '../components/States.jsx';
 const how = [
   { icon: '🗂️', title: 'Category chuniye', desc: 'Restaurant, gym, salon, business — apne kaam ki category select karein.' },
   { icon: '👀', title: 'Template dekhiye', desc: 'Har category me 3-4 professional templates. Live preview karke compare karein.' },
-  { icon: '✍️', title: 'Details daaliye', desc: 'Apni image, business ka naam aur contact details bhariye.' },
-  { icon: '🚀', title: 'Website ready!', desc: 'Turant live link paiye ya poori website HTML file me download karein.' },
+  { icon: '✍️', title: 'Details daaliye', desc: '3-4 images, title, description, products aur contact details bhariye.' },
+  { icon: '🚀', title: 'Website ready!', desc: 'Home, Products aur Contact — 3 pages ki website. Live link paiye ya ZIP download karein.' },
 ];
 
 export default function Home() {
