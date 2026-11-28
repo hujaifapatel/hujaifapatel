@@ -31,7 +31,7 @@ sitecraft/
 │       ├── app.js           # express app and routes; serves client/dist in production
 │       ├── config/db.js
 │       ├── models/          # Category, Template, Site, Message
-│       ├── routes/          # categories, templates, sites (+ messages)
+│       ├── routes/          # categories, templates, sites, messages
 │       └── seed/            # data.js + shops.js = 13 categories, 45 templates
 └── client/                  # React + Vite + Tailwind
     └── src/

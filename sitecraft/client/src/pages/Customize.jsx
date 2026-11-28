@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { api, editKeys } from '../lib/api.js';
+import { api, editKeys, API_BASE } from '../lib/api.js';
 import { useFetch } from '../lib/useFetch.js';
 import { compressImage } from '../lib/image.js';
 import ScaledFrame from '../components/ScaledFrame.jsx';
@@ -448,7 +448,7 @@ export default function Customize() {
                 </span>
               </div>
               <ScaledFrame key={device} width={devices[device].width} height={760} scrollable resetKey={page}>
-                <TemplateRenderer template={t} data={previewData} page={page} nav={{ mode: 'preview', go: setPage }} />
+                <TemplateRenderer template={t} data={previewData} page={page} nav={{ mode: 'preview', go: setPage, siteId: editId && editKey ? editId : '', apiBase: API_BASE }} />
               </ScaledFrame>
             </div>
             <p className="mt-3 text-center text-xs text-slate-400">Empty fields show demo content — your final website will only contain your own data.</p>

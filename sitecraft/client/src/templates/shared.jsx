@@ -151,10 +151,11 @@ export function enquireHref(product, d) {
 
 // Contact form. Every message is saved in the database (messages collection)
 // and the owner reads it on the "Website ready" page.
-//  - router (live website): sent with fetch, shows a success message
+//  - router (live website) and preview of a saved website: POST with fetch
 //  - static (downloaded HTML website): sent with fetch by a small inline script
 //    (see exportHtml.jsx); falls back to a normal HTML form post without JavaScript
-//  - preview (inside the builder): not sent, shows a hint instead
+//  - preview of a website that is not saved yet: nothing to save to, shows a hint
+// nav.onMessageSent (optional) is called after a message is saved (refreshes the inbox).
 export function ContactForm({ data, primary, dark = false, square = false }) {
   const nav = useContext(SiteNavContext);
   const [status, setStatus] = useState({ state: 'idle', text: '' });
@@ -164,10 +165,10 @@ export function ContactForm({ data, primary, dark = false, square = false }) {
   const endpoint = nav.siteId ? `${nav.apiBase || ''}/api/sites/${nav.siteId}/messages` : '';
 
   const onSubmit = async (e) => {
-    if (nav.mode === 'static') return; // normal form post
+    if (nav.mode === 'static') return; // handled by the inline script / normal form post
     e.preventDefault();
-    if (nav.mode !== 'router' || !endpoint) {
-      setStatus({ state: 'info', text: 'This is a preview. Messages are sent from your live website.' });
+    if (!endpoint) {
+      setStatus({ state: 'info', text: 'Generate your website first — after that, messages sent from this form are saved.' });
       return;
     }
     const form = e.currentTarget;
@@ -179,6 +180,7 @@ export function ContactForm({ data, primary, dark = false, square = false }) {
       if (!res.ok) throw new Error(out.message || 'Could not send your message');
       form.reset();
       setStatus({ state: 'sent', text: 'Thank you! Your message has been sent. We will get back to you soon.' });
+      nav.onMessageSent?.(out.data);
     } catch (err) {
       setStatus({ state: 'error', text: err.message });
     }
@@ -189,6 +191,9 @@ export function ContactForm({ data, primary, dark = false, square = false }) {
       <div className={`p-6 text-center ${square ? '' : 'rounded-xl'}`} style={{ background: hexToRgba(primary, 0.12) }}>
         <div className="text-3xl">✅</div>
         <p className={`mt-2 font-medium ${dark ? 'text-white' : 'text-slate-800'}`}>{status.text}</p>
+        <button type="button" onClick={() => setStatus({ state: 'idle', text: '' })} className="mt-3 text-sm font-semibold underline" style={{ color: primary }}>
+          Send another message
+        </button>
       </div>
     );
   }

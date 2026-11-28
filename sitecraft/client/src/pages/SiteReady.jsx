@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { api, editKeys } from '../lib/api.js';
+import { api, editKeys, API_BASE } from '../lib/api.js';
 import { useFetch } from '../lib/useFetch.js';
 import ScaledFrame from '../components/ScaledFrame.jsx';
 import PageTabs from '../components/PageTabs.jsx';
@@ -16,6 +16,7 @@ export default function SiteReady() {
   const [page, setPage] = useState('home');
   const [zipping, setZipping] = useState(''); // 'react' | 'html' | ''
   const editKey = editKeys.get(id);
+  const [inboxKey, setInboxKey] = useState(0); // bump to reload the inbox
 
   if (loading) return <PageLoader />;
   if (error) return <ErrorState error={error} title="Website not found" />;
@@ -91,7 +92,7 @@ export default function SiteReady() {
 
         {editKey && (
           <div className="mx-auto mt-10 max-w-3xl">
-            <MessagesInbox siteId={site._id} editKey={editKey} />
+            <MessagesInbox siteId={site._id} editKey={editKey} reloadKey={inboxKey} />
           </div>
         )}
 
@@ -100,7 +101,14 @@ export default function SiteReady() {
         </div>
         <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200">
           <ScaledFrame width={1280} height={680} scrollable resetKey={page}>
-            <TemplateRenderer template={site.template} data={site.data} page={page} nav={{ mode: 'preview', go: setPage }} strict />
+            <TemplateRenderer
+              template={site.template}
+              data={site.data}
+              page={page}
+              // siteId makes the contact form in this preview save real messages
+              nav={{ mode: 'preview', go: setPage, siteId: site._id, apiBase: API_BASE, onMessageSent: () => setInboxKey((k) => k + 1) }}
+              strict
+            />
           </ScaledFrame>
         </div>
       </div>

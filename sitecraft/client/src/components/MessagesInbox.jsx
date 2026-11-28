@@ -6,7 +6,8 @@ const fmt = (d) =>
   new Date(d).toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' });
 
 // Messages that visitors sent through the Contact page of a website (owner only)
-export default function MessagesInbox({ siteId, editKey }) {
+// reloadKey: change it to reload the list (e.g. after a message is sent from the preview)
+export default function MessagesInbox({ siteId, editKey, reloadKey = 0 }) {
   const [state, setState] = useState({ loading: true, error: null, items: [] });
 
   const load = () => {
@@ -16,7 +17,8 @@ export default function MessagesInbox({ siteId, editKey }) {
       .then((items) => setState({ loading: false, error: null, items }))
       .catch((error) => setState({ loading: false, error, items: [] }));
   };
-  useEffect(load, [siteId, editKey]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(load, [siteId, editKey, reloadKey]);
 
   const toggleRead = async (m) => {
     const updated = await api.markMessage(siteId, m._id, !m.read, editKey);
