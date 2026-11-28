@@ -152,7 +152,8 @@ export function enquireHref(product, d) {
 // Contact form. Every message is saved in the database (messages collection)
 // and the owner reads it on the "Website ready" page.
 //  - router (live website): sent with fetch, shows a success message
-//  - static (downloaded website): a normal HTML form post to the API
+//  - static (downloaded HTML website): sent with fetch by a small inline script
+//    (see exportHtml.jsx); falls back to a normal HTML form post without JavaScript
 //  - preview (inside the builder): not sent, shows a hint instead
 export function ContactForm({ data, primary, dark = false, square = false }) {
   const nav = useContext(SiteNavContext);
@@ -193,7 +194,7 @@ export function ContactForm({ data, primary, dark = false, square = false }) {
   }
 
   return (
-    <form action={nav.mode === 'static' ? endpoint : undefined} method="post" onSubmit={onSubmit} className="space-y-4">
+    <form action={nav.mode === 'static' ? endpoint : undefined} method="post" onSubmit={onSubmit} data-sitecraft-contact="" className="space-y-4">
       {/* honeypot field: hidden from people, filled by spam bots */}
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       <div className="grid gap-4 @xl:grid-cols-2">

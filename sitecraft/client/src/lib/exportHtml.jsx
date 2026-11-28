@@ -45,6 +45,36 @@ function extractImages(data) {
   return { data: out, files };
 }
 
+// Sends the contact form with fetch (shows up in DevTools → Network → Fetch/XHR and keeps the
+// visitor on the page). Without JavaScript the form still works as a normal HTML post.
+const CONTACT_SCRIPT = `<script>
+document.querySelectorAll('form[data-sitecraft-contact]').forEach(function (form) {
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var button = form.querySelector('button[type=submit]');
+    var label = button.textContent;
+    button.disabled = true;
+    button.textContent = 'Sending...';
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (out) {
+          if (!res.ok) throw new Error(out.message || 'Could not send your message');
+          form.innerHTML = '<p style="padding:24px;text-align:center;font-weight:600">✅ Thank you! Your message has been sent. We will get back to you soon.</p>';
+        });
+      })
+      .catch(function (err) {
+        alert(err.message);
+        button.disabled = false;
+        button.textContent = label;
+      });
+  });
+});
+</script>`;
+
 function pageHtml(template, data, page, nav) {
   const body = renderToStaticMarkup(
     <TemplateRenderer template={template} data={data} page={page} nav={nav} strict />
@@ -65,6 +95,7 @@ function pageHtml(template, data, page, nav) {
 </head>
 <body>
 ${body}
+${page === 'contact' ? CONTACT_SCRIPT : ''}
 </body>
 </html>`;
 }

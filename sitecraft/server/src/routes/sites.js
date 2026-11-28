@@ -187,10 +187,14 @@ router.post('/:id/messages', async (req, res, next) => {
     if (!msg.phone && !msg.email) return fail(400, 'Please enter your phone number or email so we can reply');
     if (msg.email && !EMAIL_RX.test(msg.email)) return fail(400, 'Please enter a valid email');
 
-    await Message.create({ site: req.params.id, ...msg });
+    const saved = await Message.create({ site: req.params.id, ...msg });
     return isForm
       ? resultPage(res, 201, 'Thank you!', 'Your message has been sent. We will get back to you soon.')
-      : res.status(201).json({ ok: true });
+      : res.status(201).json({
+          ok: true,
+          message: 'Your message has been sent',
+          data: { _id: saved._id, site: saved.site, name: saved.name, createdAt: saved.createdAt },
+        });
   } catch (err) {
     next(err);
   }
