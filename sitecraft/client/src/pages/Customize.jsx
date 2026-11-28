@@ -13,7 +13,7 @@ import { ErrorState, PageLoader, Spinner } from '../components/States.jsx';
 const EMAIL_RX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_IMAGES = 3;
 const MAX_IMAGES = 4;
-const MAX_PRODUCTS = 8;
+const MAX_PRODUCTS = 12;
 const IMAGE_SLOTS = ['Main / Hero image', 'About section', 'Gallery', 'Gallery / Contact'];
 
 const emptyProduct = () => ({ name: '', price: '', description: '', image: '' });
@@ -218,7 +218,7 @@ function ProductsStep({ template, products, setProducts, errors }) {
       </div>
       {products.length < MAX_PRODUCTS && (
         <button type="button" onClick={() => setProducts((ps) => [...ps, emptyProduct()])} className="mt-3 w-full rounded-xl border-2 border-dashed border-slate-200 py-3 text-sm font-semibold text-slate-500 hover:border-brand-500 hover:text-brand-600">
-          + Add {label.toLowerCase().replace(/s$/, '')}
+          + Add item
         </button>
       )}
     </div>

@@ -63,8 +63,8 @@ export default function Home() {
           </div>
           <dl className="mt-16 grid max-w-2xl grid-cols-3 gap-6 border-t border-white/10 pt-8">
             {[
-              [cats.data?.length || '6', 'Categories'],
-              [totalTemplates || '20', 'Templates'],
+              [cats.data?.length || '13', 'Categories'],
+              [totalTemplates || '45', 'Templates'],
               ['2 min', 'Setup time'],
             ].map(([v, l]) => (
               <div key={l}>
@@ -86,12 +86,30 @@ export default function Home() {
           </div>
           <Link to="/templates" className="text-sm font-semibold text-brand-600 hover:text-brand-700">Sab templates dekhein →</Link>
         </div>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {cats.loading &&
-            Array.from({ length: 6 }).map((_, i) => <div key={i} className="aspect-[4/3] animate-pulse rounded-2xl bg-slate-100" />)}
-          {cats.error && <p className="text-red-600">Categories load nahi hui: {cats.error.message}</p>}
-          {cats.data?.map((c) => <CategoryCard key={c.slug} category={c} />)}
-        </div>
+        {cats.loading && (
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => <div key={i} className="aspect-[4/3] animate-pulse rounded-2xl bg-slate-100" />)}
+          </div>
+        )}
+        {cats.error && <p className="mt-10 text-red-600">Categories load nahi hui: {cats.error.message}</p>}
+        {[
+          { group: 'shop', title: '🛍️ Shops & Stores', desc: 'Product wali dukane — apne products images aur price ke saath dikhaiye.' },
+          { group: 'service', title: '🧑‍💼 Services & Businesses', desc: 'Restaurant, gym, salon, agency aur bhi bahut kuch.' },
+        ].map((g) => {
+          const list = (cats.data || []).filter((c) => (c.group || 'service') === g.group);
+          if (!list.length) return null;
+          return (
+            <div key={g.group} className="mt-12">
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h3 className="text-xl font-bold">{g.title}</h3>
+                <span className="text-sm text-slate-500">{g.desc}</span>
+              </div>
+              <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {list.map((c) => <CategoryCard key={c.slug} category={c} />)}
+              </div>
+            </div>
+          );
+        })}
       </section>
 
       {/* FEATURED */}

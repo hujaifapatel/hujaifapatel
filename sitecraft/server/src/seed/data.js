@@ -1,9 +1,11 @@
 // Categories aur unke 3-4 templates.
 // Har template = ek "layout" (classic/bold/minimal/dark) + theme colors + category ka content.
 // Har template website me 3 pages hote hain: Home, Products, Contact.
+import { shopCategories, shopContent, shopDemo, shopPlan } from './shops.js';
+
 const img = (id, w = 1400) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
-export const categories = [
+const baseCategories = [
   { name: 'Restaurant & Cafe', slug: 'restaurant', icon: '🍽️', order: 1, description: 'Restaurants, cafes, bakeries aur cloud kitchens ke liye mouth-watering websites.', cover: img('1517248135467-4c7edcad34c4', 800) },
   { name: 'Gym & Fitness', slug: 'fitness', icon: '💪', order: 3, description: 'Gyms, yoga studios aur personal trainers ke liye energetic designs.', cover: img('1534438327276-14e5300c3a48', 800) },
   { name: 'Salon & Spa', slug: 'salon', icon: '💇', order: 4, description: 'Beauty parlours, salons aur spa ke liye elegant templates.', cover: img('1560066984-138dadb4c035', 800) },
@@ -14,6 +16,14 @@ export const categories = [
 ];
 
 // Template ka fixed content: "Why choose us" features + products page ka naam
+export const SHOP_SLUGS = ['mobile-store', ...shopCategories.map((c) => c.slug)];
+
+// group: 'shop' = product wali dukane, 'service' = service businesses
+export const categories = [
+  ...baseCategories.map((c) => ({ ...c, group: SHOP_SLUGS.includes(c.slug) ? 'shop' : 'service' })),
+  ...shopCategories.map((c, i) => ({ ...c, group: 'shop', order: 10 + i })),
+];
+
 const content = {
   restaurant: {
     productsLabel: 'Menu', productsIntro: 'Chef ki special dishes — fresh, tasty aur dil se bani hui.', cta: 'Book a Table',
@@ -218,6 +228,10 @@ const layoutDesc = {
   minimal: 'Simple, spacious aur elegant — content ko bolne do.',
   dark: 'Premium dark theme with glowing accents aur glass cards.',
 };
+
+Object.assign(content, shopContent);
+Object.assign(demo, shopDemo);
+Object.assign(plan, shopPlan);
 
 export const templates = Object.entries(plan).flatMap(([cat, list]) =>
   list.map(([slug, name, layout, primary, accent, font, featured, tags]) => ({

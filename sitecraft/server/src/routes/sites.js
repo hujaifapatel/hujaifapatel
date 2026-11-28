@@ -9,7 +9,7 @@ const router = Router();
 const MAX_IMAGE_BYTES = 3 * 1024 * 1024; // har image ~3MB tak (decoded)
 const MIN_IMAGES = 3;
 const MAX_IMAGES = 4;
-const MAX_PRODUCTS = 8;
+const MAX_PRODUCTS = 12;
 const EMAIL_RX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const IMG_RX = /^data:image\/(png|jpe?g|webp|gif);base64,/;
 
